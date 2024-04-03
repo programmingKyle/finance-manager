@@ -1,5 +1,6 @@
 const { app, BrowserWindow } = require('electron');
 const path = require('node:path');
+const { autoUpdater } = require('electron-updater');
 
 let mainWindow;
 
@@ -16,6 +17,17 @@ const createWindow = () => {
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
+  });
+
+  mainWindow.once('ready-to-show', () => {
+    if (app.isPackaged) {
+      autoUpdater.setFeedURL({
+        provider: 'github',
+        owner: 'programmingKyle',
+        repo: 'clocker',
+      });
+      autoUpdater.checkForUpdatesAndNotify();
+    }
   });
 
   // and load the index.html of the app.
@@ -47,6 +59,40 @@ app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
   }
+});
+
+autoUpdater.on('checking-for-update', () => {
+  mainWindow.webContents.send('auto-updater-callback', 'Checking for Update');
+});
+
+autoUpdater.on('update-available', () => {
+  mainWindow.webContents.send('auto-updater-callback', 'Update Available');
+});
+
+autoUpdater.on('update-not-available', () => {
+  mainWindow.webContents.send('auto-updater-callback', 'No Updates Available');
+});
+
+autoUpdater.on('update-downloaded', () => {
+  mainWindow.webContents.send('auto-updater-callback', 'Update Downloaded');
+});
+
+ipcMain.handle('restart-and-update', () => {
+  ensureSafeQuitAndInstall();
+});
+
+function ensureSafeQuitAndInstall() {
+  setImmediate(() => {
+    app.removeAllListeners("window-all-closed")
+    if (mainWindow != null) {
+      mainWindow.close()
+    }
+    autoUpdater.quitAndInstall(false)
+  })
+}
+
+ipcMain.handle('close-app', () => {
+  app.quit();
 });
 
 // In this file you can include the rest of your app's specific main process
