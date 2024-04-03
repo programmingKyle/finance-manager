@@ -35,3 +35,41 @@ div {
   width: 50%;
   grid-gap: 5px;
 }
+
+h1,h2,h3,h4,h5,h6 {
+  padding: 0px;
+  margin: 0px;
+  color: #ececec;
+}
+
+.container {
+  background-color: #313131;
+  border-radius: 3px;
+  text-align: center;
+  padding: 5px 10px;
+  display: grid;
+  grid-gap: 5px;
+}
+
+button {
+  background-color: #414141;
+  border-style: none;
+  color: white;
+  border-radius: 3px;
+  padding: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #252525
+}
+
+button.disable {
+  background-color: transparent;
+  color: rgb(100, 100, 100);
+}
+
+button.disable:hover{
+  pointer-events: none;
+}
+

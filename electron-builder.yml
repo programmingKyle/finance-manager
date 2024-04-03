@@ -1,0 +1,8 @@
+appId: com.squirrel.programmingKyle.finance-manager
+productName: Finance Manager
+win:
+  target: nsis
+  artifactName: "finance-manager-${version}.${ext}"
+publish:
+  provider: github
+  repo: programmingKyle/finance-manager
