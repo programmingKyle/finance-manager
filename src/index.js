@@ -1,4 +1,4 @@
-const { app, BrowserWindow } = require('electron');
+const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
 const { autoUpdater } = require('electron-updater');
 
@@ -24,7 +24,7 @@ const createWindow = () => {
       autoUpdater.setFeedURL({
         provider: 'github',
         owner: 'programmingKyle',
-        repo: 'clocker',
+        repo: 'finance-manager',
       });
       autoUpdater.checkForUpdatesAndNotify();
     }
