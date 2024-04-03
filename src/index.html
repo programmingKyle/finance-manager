@@ -4,12 +4,26 @@
     <meta charset="UTF-8" />
     <title>Finance Manager</title>
     <link rel="stylesheet" href="index.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   </head>
   <body>
     <div id="overlayContainer" class="overlay" style="display: none;">
     </div>
-    <h1>Test</h1>
+
+    <div class="base-grid">
+      <div class="frame-grid">
+        <h4 style="color: white; padding: 5px 0px; margin: auto 10px;">Finance Manager</h4>
+        <button id="minimizeButton" class="fa fa-window-minimize"></button>
+        <button id="maximizeButton" class="fa fa-window-maximize"></button>
+        <button id="exitButton" class="fa-solid fa-power-off"></button>
+      </div>
+
+      <div class="app-content-grid">
+
+      </div>
+    </div>
   </body>
+  <script src="frame.js"></script>
   <script src="overlayHandler.js"></script>
   <script src="autoUpdater.js"></script>
 </html>

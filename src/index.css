@@ -36,6 +36,27 @@ div {
   grid-gap: 5px;
 }
 
+.base-grid {
+  display: grid;
+  height: 100%;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
+
+.frame-grid {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  grid-gap: 0px;
+  -webkit-app-region: drag;
+  background-color: #2B2B2B;
+}
+
+.frame-grid button {
+  -webkit-app-region: no-drag;
+  font-size: 12px;
+  padding: 5px 10px;
+}
+
 h1,h2,h3,h4,h5,h6 {
   padding: 0px;
   margin: 0px;
@@ -71,5 +92,14 @@ button.disable {
 
 button.disable:hover{
   pointer-events: none;
+}
+
+.app-content-grid {
+  display: grid;
+  background-color: #1B1B1B;
+  grid-template-rows: auto 1fr 2fr;
+  grid-gap: 5px;
+  margin: 10px;
+  overflow: hidden;
 }
 

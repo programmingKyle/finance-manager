@@ -14,6 +14,7 @@ const createWindow = () => {
   mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
+    frame: false,
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
@@ -51,6 +52,31 @@ app.whenReady().then(() => {
     }
   });
 });
+
+let isMaximized;
+ipcMain.handle('frame-handler', (req, data) => {
+  if (!data || !data.request) return;
+  switch(data.request){
+    case 'Minimize':
+      mainWindow.minimize();
+      break;
+    case 'Maximize':
+      toggleMaximize();
+      break;
+    case 'Exit':
+      mainWindow.close();
+      break;
+    }
+});
+
+function toggleMaximize(){
+  if (isMaximized){
+    mainWindow.restore();
+  } else {
+    mainWindow.maximize();
+  }
+  isMaximized = !isMaximized;
+}
 
 // Quit when all windows are closed, except on macOS. There, it's common
 // for applications and their menu bar to stay active until the user quits
