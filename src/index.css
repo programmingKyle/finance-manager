@@ -72,6 +72,14 @@ h1,h2,h3,h4,h5,h6 {
   grid-gap: 5px;
 }
 
+.list-container {
+  display: grid;
+  grid-gap: 5px;
+  align-content: start;
+  overflow: auto;
+  border-radius: 3px;
+}
+
 button {
   background-color: #414141;
   border-style: none;
@@ -97,9 +105,37 @@ button.disable:hover{
 .app-content-grid {
   display: grid;
   background-color: #1B1B1B;
-  grid-template-rows: auto 1fr 2fr;
-  grid-gap: 5px;
-  margin: 10px;
+  grid-template-columns: 2fr 3fr;
+  grid-gap: 7px;
+  margin: 7px;
   overflow: hidden;
+}
+
+.nav-button {
+  background-color: transparent;
+  border-radius: 0px;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  font-size: 14px;
+}
+
+.nav-button.active {
+  background-color: #313131;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+  background-color: var(--scrollbar-color);
+  -webkit-box-shadow: inset 0 0 6px #9593D9;
+  cursor:pointer;
 }
 
