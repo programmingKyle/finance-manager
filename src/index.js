@@ -134,5 +134,35 @@ ipcMain.handle('close-app', () => {
   app.quit();
 });
 
+function databaseHandler(request, query, params) {
+  if (request === 'run') {
+      return new Promise((resolve, reject) => {
+        db.run(query, params, (err) => {
+          if (err) {
+              if (err.message.includes('UNIQUE constraint failed')) {
+                  resolve('duplicate');
+              } else {
+                  resolve(false); // Or reject(err) if you want to propagate the error
+              }
+          } else {
+              resolve(true); // Operation successful
+          }
+      });
+    });
+  } else if (request === 'all') {
+      return new Promise((resolve, reject) => {
+          db.all(query, params, (err, rows) => {
+              if (err) {
+                  reject(err);
+              } else {
+                  resolve(rows);
+              }
+          });  
+      });
+  } else {
+      console.error('Invalid Database Request');
+  }
+}
+
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
