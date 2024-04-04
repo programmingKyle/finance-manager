@@ -2,6 +2,19 @@ const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
 const { autoUpdater } = require('electron-updater');
 
+const sqlite3 = require('sqlite3').verbose();
+const appDataPath = app.getPath('userData');
+const db = new sqlite3.Database(`${appDataPath}/database.db`);
+
+db.run(`
+  CREATE TABLE IF NOT EXISTS projects (
+    id INTEGER PRIMARY KEY,
+    name TEXT UNIQUE,
+    type TEXT,
+    dateCreated TIMESTAMP
+  );
+`);
+
 let mainWindow;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
