@@ -21,12 +21,12 @@
       <div class="app-content-grid">
         <div id="navDiv" style="overflow: hidden; display: grid; grid-template-rows: auto 1fr;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 5px;">
-            <button class="nav-button active">Real</button>
-            <button class="nav-button">Simulated</button>
+            <button id="activeNavButton" class="nav-button active">Active</button>
+            <button id="simNavButton" class="nav-button">Simulated</button>
           </div>  
           <div class="container" style="align-content: start; overflow: hidden;">
-            <h3>Projects</h3>
-            <div class="list-container " style="display: grid; grid-gap: 5px;">
+            <h3 id="selectNavText">Active</h3>
+            <div id="projectListContainer" class="list-container " style="display: grid; grid-gap: 5px;">
               <button>Project Name</button>
               <button>Project Name</button>
             </div>
@@ -39,6 +39,7 @@
     </div>
   </body>
   <script src="frame.js"></script>
+  <script src="nav.js"></script>
   <script src="overlayHandler.js"></script>
   <script src="autoUpdater.js"></script>
 </html>
