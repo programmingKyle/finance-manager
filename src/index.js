@@ -167,3 +167,20 @@ function databaseHandler(request, query, params) {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+ipcMain.handle('project-handler', async (req, data) => {
+  console.log(data);
+  if (!data || !data.request) return;
+  switch (data.request){
+    case 'Add':
+      await addProject(data.name, data.type);
+      break;
+  }
+});
+
+async function addProject(name, type){
+  const sqlStatement = `INSERT INTO projects (name, type, dateCreated, dateModified) VALUES (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;
+  const params = [name, type];
+  const result = databaseHandler('run', sqlStatement, params);
+  return result;
+}

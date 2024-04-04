@@ -6,13 +6,15 @@ addProjectButton_el.addEventListener('click', () => {
 });
 
 function addProjectListeners(){
-    console.log(projectTypeSelected);
-
     const addProjectCloseButton_el = document.getElementById('addProjectCloseButton');
     const projectNameInput_el = document.getElementById('projectNameInput');
     const confirmAddProjectButton_el = document.getElementById('confirmAddProjectButton');
 
     addProjectCloseButton_el.addEventListener('click', () => {
         overlayContainer_el.style.display = 'none';
+    });
+
+    confirmAddProjectButton_el.addEventListener('click', async () => {
+        await api.projectHandler({request: 'Add', name: projectNameInput_el.value, type: projectTypeSelected});
     });
 }
