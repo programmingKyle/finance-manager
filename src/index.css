@@ -139,3 +139,30 @@ button.disable:hover{
   cursor:pointer;
 }
 
+.button-header-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.button-header-container .slim-button {
+  position: absolute;
+  right: 0;
+  margin-top: 3px;
+}
+
+.button-header-container h3 {
+  text-align: center;
+  flex: 1;
+}
+
+.slim-button {
+  background-color: transparent;
+  color: #7C90DB;
+  border-style: none;
+  padding: 5px;
+}
+
+.slim-button:hover{
+  color: #889ADE;
+}
