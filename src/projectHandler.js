@@ -6,6 +6,8 @@ addProjectButton_el.addEventListener('click', () => {
 });
 
 function addProjectListeners(){
+    console.log(projectTypeSelected);
+
     const addProjectCloseButton_el = document.getElementById('addProjectCloseButton');
     const projectNameInput_el = document.getElementById('projectNameInput');
     const confirmAddProjectButton_el = document.getElementById('confirmAddProjectButton');

@@ -11,7 +11,8 @@ db.run(`
     id INTEGER PRIMARY KEY,
     name TEXT UNIQUE,
     type TEXT,
-    dateCreated TIMESTAMP
+    dateCreated TIMESTAMP,
+    dateModified TIMESTAMP
   );
 `);
 
