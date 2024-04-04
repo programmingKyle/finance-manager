@@ -15,6 +15,7 @@ function addProjectListeners(){
     });
 
     confirmAddProjectButton_el.addEventListener('click', async () => {
-        await api.projectHandler({request: 'Add', name: projectNameInput_el.value, type: projectTypeSelected});
+        const result = await api.projectHandler({request: 'Add', name: projectNameInput_el.value, type: projectTypeSelected});
+        console.log(result);
     });
 }

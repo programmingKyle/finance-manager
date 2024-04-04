@@ -170,12 +170,14 @@ function databaseHandler(request, query, params) {
 
 ipcMain.handle('project-handler', async (req, data) => {
   console.log(data);
+  let result;
   if (!data || !data.request) return;
   switch (data.request){
     case 'Add':
-      await addProject(data.name, data.type);
+      result = await addProject(data.name, data.type);
       break;
   }
+  return result;
 });
 
 async function addProject(name, type){
