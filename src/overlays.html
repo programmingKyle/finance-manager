@@ -1,9 +1,18 @@
 <div id="updateContainer" class="centered-container" style="text-align: center;">
-    <div style="display: grid">
-      <h2>Update Available!</h2>
-    </div>
-    <div id="updateControlDiv" style="display: none; grid-template-columns: 1fr 1fr; grid-gap: 5px;">
-      <button id="startUpdateButton" class="input-button">Update & Restart</button>
-      <button id="quitUpdateButton" class="input-button">Update & Quit</button>
-    </div>
+  <div style="display: grid">
+    <h2>Update Available!</h2>
+  </div>
+  <div id="updateControlDiv" style="display: none; grid-template-columns: 1fr 1fr; grid-gap: 5px;">
+    <button id="startUpdateButton" class="input-button">Update & Restart</button>
+    <button id="quitUpdateButton" class="input-button">Update & Quit</button>
+  </div>
+</div>
+
+<div id="addProjectContainer" class="centered-container" style="text-align: center;">
+  <div style="display: grid; grid-template-columns: 1fr auto;">
+      <h1>Add Project</h1>
+      <button id="addProjectCloseButton" class="slim-button fa-solid fa-x"></button>
+  </div>
+  <input id="projectNameInput" type="text" placeholder="Project Name" style="padding: 10px;">
+  <button id="confirmAddProjectButton" class="input-button">Add</button>
 </div>
