@@ -20,6 +20,9 @@ function addProjectListeners(){
             return;
         }
         const result = await api.projectHandler({request: 'Add', name: projectNameInput_el.value, type: projectTypeSelected});
-        console.log(result);
+        if (result === 'duplicate'){
+            errorHandling(projectNameInput_el);
+            return;
+        }
     });
 }
