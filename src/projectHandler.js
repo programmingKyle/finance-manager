@@ -32,6 +32,13 @@ function addProjectListeners(){
 }
 
 async function populateProjectList(){
+    projectListContainer_el.innerHTML = '';
     const results = await api.projectHandler({request: 'View', type: projectTypeSelected});
-    console.log(results);
+
+    results.forEach(element => {
+        const projectButton_el = document.createElement('button');
+        projectButton_el.textContent = element.name;
+
+        projectListContainer_el.append(projectButton_el);
+    });
 }
