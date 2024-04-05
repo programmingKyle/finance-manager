@@ -190,7 +190,6 @@ async function addProject(name, type){
 }
 
 async function viewProjects(type){
-  console.log(`Get ${type}`);
   const sqlStatement = `SELECT * FROM projects WHERE type = ?`;
   const params = [type];
   const result = databaseHandler('all', sqlStatement, params);
