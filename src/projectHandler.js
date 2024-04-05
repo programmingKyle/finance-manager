@@ -1,5 +1,9 @@
 const addProjectButton_el = document.getElementById('addProjectButton');
 
+document.addEventListener('DOMContentLoaded', async () => {
+    await populateProjectList();
+});
+
 addProjectButton_el.addEventListener('click', () => {
     overlayContainer_el.style.display = 'flex';
     loadOverlayContent('overlays.html', '#addProjectContainer', addProjectListeners);
@@ -25,4 +29,9 @@ function addProjectListeners(){
             return;
         }
     });
+}
+
+async function populateProjectList(){
+    const results = await api.projectHandler({request: 'View', type: projectTypeSelected});
+    console.log(results);
 }

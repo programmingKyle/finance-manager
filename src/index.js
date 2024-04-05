@@ -169,12 +169,14 @@ function databaseHandler(request, query, params) {
 // code. You can also put them in separate files and import them here.
 
 ipcMain.handle('project-handler', async (req, data) => {
-  console.log(data);
   let result;
   if (!data || !data.request) return;
   switch (data.request){
     case 'Add':
       result = await addProject(data.name, data.type);
+      break;
+    case 'View':
+      result = await viewProjects(data.type);
       break;
   }
   return result;
@@ -184,5 +186,13 @@ async function addProject(name, type){
   const sqlStatement = `INSERT INTO projects (name, type, dateCreated, dateModified) VALUES (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;
   const params = [name, type];
   const result = databaseHandler('run', sqlStatement, params);
+  return result;
+}
+
+async function viewProjects(type){
+  console.log(`Get ${type}`);
+  const sqlStatement = `SELECT * FROM projects WHERE type = ?`;
+  const params = [type];
+  const result = databaseHandler('all', sqlStatement, params);
   return result;
 }
