@@ -36,8 +36,8 @@ function addProjectListeners(){
 async function populateProjectList(){
     projectListContainer_el.innerHTML = '';
     const results = await api.projectHandler({request: 'View', type: projectTypeSelected});
-
-    results.forEach(element => {
+    const sortedResults = results.sort((a, b) => new Date(b.dateModified) - new Date(a.dateModified));
+    sortedResults.forEach(element => {
         const projectButton_el = document.createElement('button');
         projectButton_el.textContent = element.name;
 
