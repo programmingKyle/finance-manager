@@ -9,10 +9,11 @@ const db = new sqlite3.Database(`${appDataPath}/database.db`);
 db.run(`
   CREATE TABLE IF NOT EXISTS projects (
     id INTEGER PRIMARY KEY,
-    name TEXT UNIQUE,
+    name TEXT,
     type TEXT,
     dateCreated TIMESTAMP,
-    dateModified TIMESTAMP
+    dateModified TIMESTAMP,
+    UNIQUE(name, type)
   );
 `);
 
