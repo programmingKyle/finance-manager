@@ -28,6 +28,8 @@ function addProjectListeners(){
             errorHandling(projectNameInput_el);
             return;
         }
+        overlayContainer_el.style.display = 'none';
+        await populateProjectList();
     });
 }
 
