@@ -189,3 +189,16 @@ input.error {
   grid-template-rows: 1fr 1fr;
   grid-gap: 5px;
 }
+
+.canvas-grid {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 10px;
+}
+
+.inner-container {
+  background-color: #252525;
+  border-radius: 10px;
+  display: grid;
+  box-shadow: inset 0px 0px 5px #0e0e0e;
+}
