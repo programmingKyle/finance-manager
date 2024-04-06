@@ -28,6 +28,7 @@
   },
   "license": "MIT",
   "dependencies": {
+    "chart.js": "^4.4.2",
     "electron-squirrel-startup": "^1.0.0",
     "electron-updater": "^6.1.8",
     "sqlite3": "^5.1.6"

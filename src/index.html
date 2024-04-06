@@ -5,6 +5,7 @@
     <title>Finance Manager</title>
     <link rel="stylesheet" href="index.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <div id="overlayContainer" class="overlay" style="display: none;">
@@ -30,12 +31,17 @@
               <button id="addProjectButton" class="slim-button fas fa-plus"></button>
             </div>
             <div id="projectListContainer" class="list-container " style="display: grid; grid-gap: 5px;">
-              
+
             </div>
           </div>
         </div>
-        <div class="container">
-
+        <div class="graph-grid">
+          <div class="container">
+            <canvas id="activeCombGraph"></canvas>
+          </div>
+          <div class="container">
+            <canvas id="activeInteractionsGraph"></canvas>
+          </div>
         </div>
       </div>
     </div>
@@ -46,4 +52,5 @@
   <script src="overlayHandler.js"></script>
   <script src="projectHandler.js"></script>
   <script src="autoUpdater.js"></script>
+  <script src="./graphs/activeComb.js"></script>
 </html>

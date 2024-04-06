@@ -184,3 +184,8 @@ input.error {
   box-shadow: inset 0px 0px 5px #ff2b2b;
 }
 
+.graph-grid {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-gap: 5px;
+}
