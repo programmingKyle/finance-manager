@@ -158,7 +158,7 @@ button.disable:hover{
   min-width: 100px;
 }
 
-.button-header-container h4 {
+.button-header-container h3, h4 {
   text-align: center;
   flex: 1;
 }
@@ -200,6 +200,7 @@ input.error {
 .canvas-grid {
   display: grid;
   grid-template-rows: auto 1fr;
+  grid-gap: 10px;
 }
 
 .inner-container {

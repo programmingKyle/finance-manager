@@ -73,4 +73,4 @@ function createActiveInteractionsGraph() {
 
 document.addEventListener('DOMContentLoaded', () => {
     createActiveInteractionsGraph();
-});
+  });
