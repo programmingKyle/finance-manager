@@ -19,7 +19,8 @@
     "@electron-forge/plugin-auto-unpack-natives": "^7.3.1",
     "@electron-forge/plugin-fuses": "^7.3.1",
     "@electron/fuses": "^1.8.0",
-    "electron": "29.1.6"
+    "electron": "29.1.6",
+    "electron-builder": "^24.13.3"
   },
   "keywords": [],
   "author": {
@@ -31,6 +32,6 @@
     "chart.js": "^4.4.2",
     "electron-squirrel-startup": "^1.0.0",
     "electron-updater": "^6.1.8",
-    "sqlite3": "^5.1.6"
+    "sqlite3": "5.1.6"
   }
 }
