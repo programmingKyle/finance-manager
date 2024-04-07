@@ -26,13 +26,18 @@ bottomGraphSelect_el.addEventListener('change', () => {
     console.log(bottomGraphSelect_el.value);
 });
 
+let resizeTimer;
+
 window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
     if (combGraph){
         combGraph.destroy();
     }
     if (interactionsGraph){
         interactionsGraph.destroy();
     }
-    interactionsGraph = createActiveInteractionsGraph();
-    combGraph = createSalesExpensesComparisonGraph();
+    resizeTimer = setTimeout(() => {
+        interactionsGraph = createActiveInteractionsGraph();
+        combGraph = createSalesExpensesComparisonGraph();    
+    }, 500);
 });
