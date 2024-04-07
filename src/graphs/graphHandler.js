@@ -25,3 +25,14 @@ topGraphSelect_el.addEventListener('change', () => {
 bottomGraphSelect_el.addEventListener('change', () => {
     console.log(bottomGraphSelect_el.value);
 });
+
+window.addEventListener('resize', () => {
+    if (combGraph){
+        combGraph.destroy();
+    }
+    if (interactionsGraph){
+        interactionsGraph.destroy();
+    }
+    interactionsGraph = createActiveInteractionsGraph();
+    combGraph = createSalesExpensesComparisonGraph();
+});

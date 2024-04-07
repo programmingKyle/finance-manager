@@ -1,6 +1,8 @@
 const activeInteractionsGraph_el = document.getElementById('activeInteractionsGraph');
 const ctxInteractions = activeInteractionsGraph_el.getContext('2d');
 
+let interactionsGraph;
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -72,5 +74,5 @@ function createActiveInteractionsGraph() {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    createActiveInteractionsGraph();
-  });
+  interactionsGraph = createActiveInteractionsGraph();
+});

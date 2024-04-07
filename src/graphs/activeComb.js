@@ -1,6 +1,8 @@
 const activeCombGraph_el = document.getElementById('activeCombGraph');
 const ctxSalesExpenses = activeCombGraph_el.getContext('2d');
 
+let combGraph;
+
 function getMonths() {
   const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   return months;
@@ -87,5 +89,5 @@ function createSalesExpensesComparisonGraph() {
 }
   
 document.addEventListener('DOMContentLoaded', () => {
-    createSalesExpensesComparisonGraph();
+  combGraph = createSalesExpensesComparisonGraph();
 });
