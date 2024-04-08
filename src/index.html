@@ -19,7 +19,7 @@
         <button id="exitButton" class="fa-solid fa-power-off"></button>
       </div>
 
-      <div class="app-content-grid">
+      <div id="homeView" class="app-content-grid">
         <div id="navDiv" style="overflow: hidden; display: grid; grid-template-rows: auto 1fr;">
           <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 5px;">
             <button id="activeNavButton" class="nav-button active">Active</button>
@@ -58,6 +58,15 @@
           </div>
         </div>
       </div>
+
+      <div id="projectView" style="display: none;" class="project-content-grid">
+        <div>
+          <h1>Project View</h1>
+        </div>
+        <div>
+          
+        </div>
+      </div>
     </div>
   </body>
   <script src="frame.js"></script>
@@ -66,6 +75,7 @@
   <script src="overlayHandler.js"></script>
   <script src="projectHandler.js"></script>
   <script src="autoUpdater.js"></script>
+  <script src="viewHandler.js"></script>
 
   <script src="./graphs/graphHandler.js"></script>
   <script src="./graphs/activeComb.js"></script>

@@ -227,3 +227,13 @@ select {
 select.error {
   box-shadow: inset 0px 0px 5px #ff2b2b;
 }
+
+.project-content-grid {
+  display: grid;
+  background-color: #1B1B1B;
+  grid-template-rows: auto 1fr;
+  grid-gap: 7px;
+  margin: 7px;
+  overflow: hidden;
+}
+
