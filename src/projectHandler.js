@@ -1,4 +1,5 @@
 const addProjectButton_el = document.getElementById('addProjectButton');
+const projectBackButton_el = document.getElementById('projectBackButton');
 
 document.addEventListener('DOMContentLoaded', async () => {
     await populateProjectList();
@@ -48,3 +49,7 @@ async function populateProjectList(){
         projectListContainer_el.append(projectButton_el);
     });
 }
+
+projectBackButton_el.addEventListener('click', () => {
+    changeView('home');
+});

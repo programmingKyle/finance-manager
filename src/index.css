@@ -237,3 +237,19 @@ select.error {
   overflow: hidden;
 }
 
+.project-header-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.project-header-container .slim-button {
+  position: absolute;
+  left: 0;
+  margin-top: 3px;
+}
+
+.project-header-container h2 {
+  text-align: center;
+  flex: 1;
+}
