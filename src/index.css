@@ -264,12 +264,14 @@ select.error {
   display: grid;
   grid-template-columns: 1fr 2fr;
   grid-gap: 5px;
+  overflow: hidden;
 }
 
 .project-view-content-left {
   display: grid;
   grid-template-rows: auto 1fr;
   grid-gap: 5px;
+  overflow: hidden;
 }
 
 .project-view-content-right {
@@ -289,4 +291,38 @@ select.error {
   grid-template-columns: 1fr auto 1fr 1fr;
   grid-gap: 5px;
   align-items: center;
+}
+
+.log-container {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  overflow: hidden;
+}
+
+.log-content {
+  display: grid;
+  background-color: #1B1B1B;
+  border-radius: 5px;
+  align-content: start;
+  overflow: auto;
+}
+
+.log-content .item {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 2px 5px;
+}
+
+.log-content .item:nth-child(even){
+  background-color: #1B1B1B;
+}
+
+.log-content .item:nth-child(odd){
+  background-color: #272727;
+}
+
+.log-content .item h6 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
