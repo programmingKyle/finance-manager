@@ -53,8 +53,12 @@ window.addEventListener('resize', () => {
     if (interactionsGraph){
         interactionsGraph.destroy();
     }
+    if (projectCombGraph){
+        projectCombGraph.destroy();
+    }
     resizeTimer = setTimeout(() => {
         interactionsGraph = createActiveInteractionsGraph();
-        combGraph = createSalesExpensesComparisonGraph();    
+        combGraph = createSalesExpensesComparisonGraph();
+        projectCombGraph = createProjectSaleExpensesGraph();
     }, 500);
 });
