@@ -17,6 +17,17 @@ db.run(`
   );
 `);
 
+db.run(`
+  CREATE TABLE IF NOT EXISTS logs (
+    id INTEGER PRIMARY KEY,
+    projectID INTEGER,
+    description TEXT,
+    value DECIMAL, -- DECIMAL to store dollar amount with 2 decimal places
+    type TEXT,
+    date TIMESTAMP
+  );
+`);
+
 let mainWindow;
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
