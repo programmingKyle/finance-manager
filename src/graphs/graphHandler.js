@@ -1,5 +1,9 @@
-const topGraphSelect_el = document.getElementById('topGraphSelect');
-const bottomGraphSelect_el = document.getElementById('bottomGraphSelect');
+const graphSelect1_el = document.getElementById('graphSelect1');
+const graphSelect2_el = document.getElementById('graphSelect2');
+const graphSelect3_el = document.getElementById('graphSelect3');
+const graphSelect4_el = document.getElementById('graphSelect4');
+
+const graphSelects = [graphSelect1_el, graphSelect2_el, graphSelect3_el, graphSelect4_el];
 
 // Used for populating select options
 function populateGraphSelect(select){
@@ -14,16 +18,29 @@ function populateGraphSelect(select){
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-    populateGraphSelect(topGraphSelect_el);
-    populateGraphSelect(bottomGraphSelect_el);
+    graphSelects.forEach(element => {
+        populateGraphSelect(element);        
+    });
 });
 
-topGraphSelect_el.addEventListener('change', () => {
-    console.log(topGraphSelect_el.value);
+// Home View Comparison Graph
+graphSelect1_el.addEventListener('change', () => {
+    console.log(graphSelect1_el.value);
 });
 
-bottomGraphSelect_el.addEventListener('change', () => {
-    console.log(bottomGraphSelect_el.value);
+// Home View Number of Transactions Graph
+graphSelect2_el.addEventListener('change', () => {
+    console.log(graphSelect2_el.value);
+});
+
+// Prject View Comparison Graph
+graphSelect1_el.addEventListener('change', () => {
+    console.log(graphSelect1_el.value);
+});
+
+// Project View Profit Growth Graph
+graphSelect1_el.addEventListener('change', () => {
+    console.log(graphSelect1_el.value);
 });
 
 let resizeTimer;
