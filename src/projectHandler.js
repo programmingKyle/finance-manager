@@ -43,7 +43,7 @@ async function populateProjectList(){
         projectButton_el.textContent = element.name;
 
         projectButton_el.addEventListener('click', () => {
-            changeView('project');
+            changeView('project', element.name);
         });
 
         projectListContainer_el.append(projectButton_el);
