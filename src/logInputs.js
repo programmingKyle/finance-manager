@@ -8,4 +8,19 @@ const inputSubmit_el = document.getElementById('inputSubmit');
 
 inputDecimal_el.addEventListener('input', () => {
     maxCharacterInput(inputDecimal_el, 2);
-})
+});
+
+inputSubmit_el.addEventListener('click', () => {
+    const formatValue = () => {
+        const isNegative = typeInput_el.value === 'expense' ? '-' : '';
+        const value = `${isNegative}${inputDollar_el.value}.${inputDecimal_el.value}`;
+        return value;
+    }
+    const log = [{
+        description: descriptionInput_el.value,
+        type: typeInput_el.value,
+        value: formatValue(),
+    }];
+    console.log(data);
+    api.logHandler({request: 'log', log});
+});

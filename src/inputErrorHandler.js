@@ -13,7 +13,6 @@ function errorTimeout(element){
 
 function maxCharacterInput(input, length){
     input.addEventListener('input', () => {
-        console.log(input.value.length);
         if (input.value.length > length){
             input.value = input.value.slice(0, length);
             errorHandling(input);

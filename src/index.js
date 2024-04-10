@@ -210,3 +210,14 @@ async function viewProjects(type){
   const result = databaseHandler('all', sqlStatement, params);
   return result;
 }
+
+ipcMain.handle('log-handler', (req, data) => {
+  console.log(data);
+  if (!data || !data.request) return;
+  switch (data.request){
+    case 'view':
+      break;
+    case 'log':
+      break;
+  }
+});
