@@ -62,13 +62,3 @@ async function populateProjectList(){
 projectBackButton_el.addEventListener('click', () => {
     changeView('home');
 });
-
-function maxCharacterInput(input, length){
-    input.addEventListener('input', () => {
-        console.log(input.value.length);
-        if (input.value.length > length){
-            input.value = input.value.slice(0, length);
-            errorHandling(input);
-        }
-    });
-}
