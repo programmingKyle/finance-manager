@@ -13,6 +13,7 @@ addProjectButton_el.addEventListener('click', () => {
 function addProjectListeners(){
     const addProjectCloseButton_el = document.getElementById('addProjectCloseButton');
     const projectNameInput_el = document.getElementById('projectNameInput');
+    const currencyInput_el = document.getElementById('currencyInput');
     const confirmAddProjectButton_el = document.getElementById('confirmAddProjectButton');
 
     addProjectCloseButton_el.addEventListener('click', () => {
@@ -24,7 +25,8 @@ function addProjectListeners(){
             errorHandling(projectNameInput_el);
             return;
         }
-        const result = await api.projectHandler({request: 'Add', name: projectNameInput_el.value, type: projectTypeSelected});
+        console.log(currencyInput_el.value);
+        const result = await api.projectHandler({request: 'Add', name: projectNameInput_el.value, currency: currencyInput_el.value, type: projectTypeSelected});
         if (result === 'duplicate'){
             errorHandling(projectNameInput_el);
             return;

@@ -10,6 +10,7 @@ db.run(`
   CREATE TABLE IF NOT EXISTS projects (
     id INTEGER PRIMARY KEY,
     name TEXT,
+    currency TEXT,
     type TEXT,
     dateCreated TIMESTAMP,
     dateModified TIMESTAMP,
@@ -187,7 +188,7 @@ ipcMain.handle('project-handler', async (req, data) => {
   if (!data || !data.request) return;
   switch (data.request){
     case 'Add':
-      result = await addProject(data.name, data.type);
+      result = await addProject(data.name, data.currency, data.type);
       break;
     case 'View':
       result = await viewProjects(data.type);
@@ -196,9 +197,9 @@ ipcMain.handle('project-handler', async (req, data) => {
   return result;
 });
 
-async function addProject(name, type){
-  const sqlStatement = `INSERT INTO projects (name, type, dateCreated, dateModified) VALUES (?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;
-  const params = [name, type];
+async function addProject(name, currency, type){
+  const sqlStatement = `INSERT INTO projects (name, currency, type, dateCreated, dateModified) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;
+  const params = [name, currency, type];
   const result = databaseHandler('run', sqlStatement, params);
   return result;
 }
