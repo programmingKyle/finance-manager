@@ -25,7 +25,6 @@ function addProjectListeners(){
             errorHandling(projectNameInput_el);
             return;
         }
-        console.log(currencyInput_el.value);
         const result = await api.projectHandler({request: 'Add', name: projectNameInput_el.value, currency: currencyInput_el.value, type: projectTypeSelected});
         if (result === 'duplicate'){
             errorHandling(projectNameInput_el);
@@ -45,7 +44,7 @@ async function populateProjectList(){
         projectButton_el.textContent = element.name;
 
         projectButton_el.addEventListener('click', () => {
-            changeView('project', element.name);
+            changeView('project', element.name, element.currency);
         });
 
         projectListContainer_el.append(projectButton_el);
