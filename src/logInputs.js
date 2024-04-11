@@ -11,6 +11,18 @@ inputDecimal_el.addEventListener('input', () => {
 });
 
 inputSubmit_el.addEventListener('click', () => {
+    if (descriptionInput_el.value === '' || inputDollar_el.value === '' || inputDecimal_el.value === ''){
+        if (descriptionInput_el.value === ''){
+            errorHandling(descriptionInput_el);
+        }
+        if (inputDollar_el.value === ''){
+            errorHandling(inputDollar_el);
+        }
+        if (inputDecimal_el.value === ''){
+            errorHandling(inputDecimal_el);
+        }
+        return;
+    }
     const formatValue = () => {
         const isNegative = typeInput_el.value === 'expense' ? '-' : '';
         const value = `${isNegative}${inputDollar_el.value}.${inputDecimal_el.value}`;

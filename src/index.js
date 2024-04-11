@@ -217,8 +217,7 @@ ipcMain.handle('log-handler', async (req, data) => {
     case 'view':
       break;
     case 'log':
-      const result = await inputLog(data.log);
-      console.log(result);
+      await inputLog(data.log);
       break;
   }
 });
