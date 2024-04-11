@@ -213,13 +213,15 @@ async function viewProjects(type){
 
 ipcMain.handle('log-handler', async (req, data) => {
   if (!data || !data.request) return;
+  let result;
   switch (data.request){
     case 'view':
       break;
     case 'log':
-      await inputLog(data.log);
+      result = await inputLog(data.log);
       break;
   }
+  return result;
 });
 
 async function inputLog(log){

@@ -3,6 +3,7 @@ const typeInput_el = document.getElementById('typeInput');
 const inputDollar_el = document.getElementById('inputDollar');
 const inputDecimal_el = document.getElementById('inputDecimal');
 const inputSubmit_el = document.getElementById('inputSubmit');
+const logSuccessText_el = document.getElementById('logSuccessText');
 
 // Going to need currencyText_el
 
@@ -34,5 +35,20 @@ inputSubmit_el.addEventListener('click', () => {
         type: typeInput_el.value,
         value: formatValue(),
     };
-    api.logHandler({request: 'log', log});
+    const isSuccessful = api.logHandler({request: 'log', log});
+    if (isSuccessful){
+        logDisplay(inputSubmit_el, logSuccessText_el, 'Log Successful');
+    } else {
+        logDisplay(inputSubmit_el, logSuccessText_el, 'Log Failed');
+    }
 });
+
+function logDisplay(button, text, message){
+    button.style.display = 'none';
+    text.style.display = 'grid';
+    text.textContent = message;
+    setTimeout(() => {
+        button.style.display = 'grid';
+        text.style.display = 'none';
+    }, 2000);
+}
