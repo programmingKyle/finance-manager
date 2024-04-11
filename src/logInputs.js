@@ -16,11 +16,11 @@ inputSubmit_el.addEventListener('click', () => {
         const value = `${isNegative}${inputDollar_el.value}.${inputDecimal_el.value}`;
         return value;
     }
-    const log = [{
+    const log = {
+        projectID: currentProjectID,
         description: descriptionInput_el.value,
         type: typeInput_el.value,
         value: formatValue(),
-    }];
-    console.log(data);
+    };
     api.logHandler({request: 'log', log});
 });

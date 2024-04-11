@@ -23,7 +23,7 @@ db.run(`
     id INTEGER PRIMARY KEY,
     projectID INTEGER,
     description TEXT,
-    value DECIMAL, -- DECIMAL to store dollar amount with 2 decimal places
+    value DECIMAL,
     type TEXT,
     date TIMESTAMP
   );
@@ -211,13 +211,21 @@ async function viewProjects(type){
   return result;
 }
 
-ipcMain.handle('log-handler', (req, data) => {
-  console.log(data);
+ipcMain.handle('log-handler', async (req, data) => {
   if (!data || !data.request) return;
   switch (data.request){
     case 'view':
       break;
     case 'log':
+      const result = await inputLog(data.log);
+      console.log(result);
       break;
   }
 });
+
+async function inputLog(log){
+  const sqlStatement = `INSERT INTO logs (projectID, description, value, type, date) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`;
+  const params = [log.projectID, log.description, log.value, log.type];
+  const result = databaseHandler('run', sqlStatement, params);
+  return result;
+}

@@ -1,6 +1,8 @@
 const addProjectButton_el = document.getElementById('addProjectButton');
 const projectBackButton_el = document.getElementById('projectBackButton');
 
+let currentProjectID;
+
 document.addEventListener('DOMContentLoaded', async () => {
     await populateProjectList();
 });
@@ -52,6 +54,7 @@ async function populateProjectList(){
         projectButton_el.textContent = element.name;
 
         projectButton_el.addEventListener('click', () => {
+            currentProjectID = element.id;
             changeView('project', element.name, element.currency);
         });
 
