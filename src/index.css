@@ -280,11 +280,17 @@ select.error {
   grid-gap: 5px;
 }
 
-.project-input-number-grid {
+.value-inputs {
   display: grid;
-  grid-template-columns: 1fr auto 1fr 1fr;
+  grid-template-columns: auto auto auto auto;
   grid-gap: 5px;
   align-items: center;
+}
+
+.value-inputs input[type=number]::-webkit-inner-spin-button,
+.value-inputs input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
 .log-container {
