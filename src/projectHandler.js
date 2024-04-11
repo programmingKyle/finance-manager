@@ -56,6 +56,7 @@ async function populateProjectList(){
         projectButton_el.addEventListener('click', () => {
             currentProjectID = element.id;
             changeView('project', element.name, element.currency);
+            getLogContent();
         });
 
         projectListContainer_el.append(projectButton_el);

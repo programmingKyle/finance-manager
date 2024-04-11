@@ -216,6 +216,7 @@ ipcMain.handle('log-handler', async (req, data) => {
   let result;
   switch (data.request){
     case 'view':
+      result = await viewLog(data.projectID);
       break;
     case 'log':
       result = await inputLog(data.log);
@@ -228,5 +229,12 @@ async function inputLog(log){
   const sqlStatement = `INSERT INTO logs (projectID, description, value, type, date) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`;
   const params = [log.projectID, log.description, log.value, log.type];
   const result = databaseHandler('run', sqlStatement, params);
+  return result;
+}
+
+async function viewLog(projectID){
+  const sqlStatement = `SELECT * FROM logs WHERE projectID = ? ORDER BY date DESC LIMIT 100`;
+  const params = [projectID];
+  const result = databaseHandler('all', sqlStatement, params);
   return result;
 }
