@@ -187,10 +187,10 @@ input {
   color: #9593D9;
   border-radius: 3px;
   border-style: none;
-  padding: 3px;
   outline: none; /* Remove the focus outline */
   min-width: 0;
   transition: box-shadow 0.3s ease-in-out;
+  padding: 5px 10px;
 }
 
 input.error {

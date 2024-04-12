@@ -8,6 +8,7 @@ async function getLogContent(){
 }
 
 async function populateLogs(){
+    logContent_el.innerHTML = '';
     recentLog.forEach(element => {
         const itemDiv_el = document.createElement('div');
         itemDiv_el.classList.add('item');

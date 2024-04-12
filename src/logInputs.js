@@ -38,6 +38,7 @@ inputSubmit_el.addEventListener('click', () => {
     const isSuccessful = api.logHandler({request: 'log', log});
     if (isSuccessful){
         logDisplay(inputSubmit_el, logSuccessText_el, 'Log Successful');
+        getLogContent();
     } else {
         logDisplay(inputSubmit_el, logSuccessText_el, 'Log Failed');
     }
