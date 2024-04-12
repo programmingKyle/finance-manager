@@ -68,6 +68,7 @@ async function populateProjectList(){
 
 projectBackButton_el.addEventListener('click', () => {
     changeView('home');
+    populateProjectList();
 });
 
 projectEditButton_el.addEventListener('click', () => {
@@ -76,7 +77,6 @@ projectEditButton_el.addEventListener('click', () => {
 });
 
 async function editProjectListeners(){
-    console.log(projectData);
     const editProjectCloseButton_el = document.getElementById('editProjectCloseButton');
     const editProjectNameInput_el = document.getElementById('editProjectNameInput');
     const editCurrencyInput_el = document.getElementById('editCurrencyInput');
@@ -102,6 +102,12 @@ async function editProjectListeners(){
             return;
         }
 
-        await api.projectHandler({request: 'Edit', id: projectData.id, newName: editProjectNameInput_el.value, newCurrency: editCurrencyInput_el.value});
+        const editSuccess = await api.projectHandler({request: 'Edit', id: projectData.id, newName: editProjectNameInput_el.value, newCurrency: editCurrencyInput_el.value});
+        if (editSuccess){
+            projectData.name = editProjectNameInput_el.value;
+            projectData.currency = editCurrencyInput_el.value;
+            changeView('project', projectData.name, projectData.currency);
+            overlayContainer_el.style.display = 'none';
+        }
     });
 }
