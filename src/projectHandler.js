@@ -85,7 +85,21 @@ async function editProjectListeners(){
     editProjectNameInput_el.value = projectData.name;
     editCurrencyInput_el.value = projectData.currency;
 
+    maxCharacterInput(editCurrencyInput_el, 4);
+
     editProjectCloseButton_el.addEventListener('click', () => {
         overlayContainer_el.style.display = 'none';
+    });
+
+    confirmEditProjectButton_el.addEventListener('click', () => {
+        if (editProjectNameInput_el.value === '' || editCurrencyInput_el.value === ''){
+            if (editProjectNameInput_el.value === ''){
+                errorHandling(editProjectNameInput_el);
+            }
+            if (editCurrencyInput_el.value === ''){
+                errorHandling(editCurrencyInput_el);
+            }
+            return;
+        }
     });
 }
