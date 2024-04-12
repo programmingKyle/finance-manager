@@ -193,9 +193,20 @@ ipcMain.handle('project-handler', async (req, data) => {
     case 'View':
       result = await viewProjects(data.type);
       break;
+    case 'Edit':
+      result = await editProject(data.id, data.newName, data.newCurrency);
+      console.log(result);
+      break;
   }
   return result;
 });
+
+async function editProject(id, newName, newCurrency){
+  const sqlStatement = `UPDATE projects SET name = ?, currency = ? WHERE id = ?`;
+  const params = [newName, newCurrency, id];
+  const result = databaseHandler('run', sqlStatement, params);
+  return result;
+}
 
 async function addProject(name, currency, type){
   const sqlStatement = `INSERT INTO projects (name, currency, type, dateCreated, dateModified) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;

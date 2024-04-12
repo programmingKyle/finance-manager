@@ -91,7 +91,7 @@ async function editProjectListeners(){
         overlayContainer_el.style.display = 'none';
     });
 
-    confirmEditProjectButton_el.addEventListener('click', () => {
+    confirmEditProjectButton_el.addEventListener('click', async () => {
         if (editProjectNameInput_el.value === '' || editCurrencyInput_el.value === ''){
             if (editProjectNameInput_el.value === ''){
                 errorHandling(editProjectNameInput_el);
@@ -101,5 +101,7 @@ async function editProjectListeners(){
             }
             return;
         }
+
+        await api.projectHandler({request: 'Edit', id: projectData.id, newName: editProjectNameInput_el.value, newCurrency: editCurrencyInput_el.value});
     });
 }
