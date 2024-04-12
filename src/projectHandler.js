@@ -118,5 +118,18 @@ async function editProjectListeners(){
 }
 
 function deleteProjectListeners(){
-    
+    const deleteProjectCloseButton_el = document.getElementById('deleteProjectCloseButton');
+    const confirmDeleteInput_el = document.getElementById('confirmDeleteInput');
+    const confirmDeleteButton_el = document.getElementById('confirmDeleteButton');
+
+    deleteProjectCloseButton_el.addEventListener('click', () => {
+        overlayContainer_el.style.display = 'none';
+    });
+
+    confirmDeleteButton_el.addEventListener('click', () => {
+        if (confirmDeleteInput_el.value === '' || confirmDeleteInput_el.value !== 'DELETE'){
+            errorHandling(confirmDeleteInput_el);
+            return;
+        }
+    });
 }
