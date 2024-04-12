@@ -1,4 +1,5 @@
 const addProjectButton_el = document.getElementById('addProjectButton');
+const projectEditButton_el = document.getElementById('projectEditButton');
 const projectBackButton_el = document.getElementById('projectBackButton');
 
 let currentProjectID;
@@ -66,3 +67,19 @@ async function populateProjectList(){
 projectBackButton_el.addEventListener('click', () => {
     changeView('home');
 });
+
+projectEditButton_el.addEventListener('click', () => {
+    overlayContainer_el.style.display = 'flex';
+    loadOverlayContent('overlays.html', '#editProjectContainer', editProjectListeners);
+});
+
+async function editProjectListeners(){
+    const editProjectCloseButton_el = document.getElementById('editProjectCloseButton');
+    const editProjectNameInput_el = document.getElementById('editProjectNameInput');
+    const editCurrencyInput_el = document.getElementById('editCurrencyInput');
+    const confirmEditProjectButton_el = document.getElementById('confirmEditProjectButton');
+
+    editProjectCloseButton_el.addEventListener('click', () => {
+        overlayContainer_el.style.display = 'none';
+    });
+}
