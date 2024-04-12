@@ -81,6 +81,7 @@ async function editProjectListeners(){
     const editProjectNameInput_el = document.getElementById('editProjectNameInput');
     const editCurrencyInput_el = document.getElementById('editCurrencyInput');
     const confirmEditProjectButton_el = document.getElementById('confirmEditProjectButton');
+    const deleteProjectButton_el = document.getElementById('deleteProjectButton');
 
     editProjectNameInput_el.value = projectData.name;
     editCurrencyInput_el.value = projectData.currency;
@@ -110,4 +111,12 @@ async function editProjectListeners(){
             overlayContainer_el.style.display = 'none';
         }
     });
+
+    deleteProjectButton_el.addEventListener('click', () => {
+        loadOverlayContent('overlays.html', '#deleteProjectContainer', deleteProjectListeners);
+    });
+}
+
+function deleteProjectListeners(){
+    
 }
