@@ -3,6 +3,7 @@ const projectEditButton_el = document.getElementById('projectEditButton');
 const projectBackButton_el = document.getElementById('projectBackButton');
 
 let currentProjectID;
+let projectData;
 
 document.addEventListener('DOMContentLoaded', async () => {
     await populateProjectList();
@@ -56,6 +57,7 @@ async function populateProjectList(){
 
         projectButton_el.addEventListener('click', () => {
             currentProjectID = element.id;
+            projectData = element;
             changeView('project', element.name, element.currency);
             getLogContent();
         });
@@ -74,10 +76,14 @@ projectEditButton_el.addEventListener('click', () => {
 });
 
 async function editProjectListeners(){
+    console.log(projectData);
     const editProjectCloseButton_el = document.getElementById('editProjectCloseButton');
     const editProjectNameInput_el = document.getElementById('editProjectNameInput');
     const editCurrencyInput_el = document.getElementById('editCurrencyInput');
     const confirmEditProjectButton_el = document.getElementById('confirmEditProjectButton');
+
+    editProjectNameInput_el.value = projectData.name;
+    editCurrencyInput_el.value = projectData.currency;
 
     editProjectCloseButton_el.addEventListener('click', () => {
         overlayContainer_el.style.display = 'none';
