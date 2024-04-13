@@ -131,6 +131,11 @@ function deleteProjectListeners(){
             errorHandling(confirmDeleteInput_el);
             return;
         }
-        await api.projectHandler({request: 'Delete', id: currentProjectID});
+        const deleteResult = await api.projectHandler({request: 'Delete', id: currentProjectID});
+        if (deleteResult){
+            overlayContainer_el.style.display = 'none';
+            changeView('home');
+            populateProjectList();
+        }
     });
 }

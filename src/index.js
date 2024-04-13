@@ -238,6 +238,7 @@ async function deleteProject(id){
   } catch (err){
     result = false;
   }
+  return result;
 }
 
 ipcMain.handle('log-handler', async (req, data) => {
