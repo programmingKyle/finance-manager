@@ -310,6 +310,7 @@ select.error {
 .log-content .item {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 2px;
   padding: 2px 5px;
 }
 

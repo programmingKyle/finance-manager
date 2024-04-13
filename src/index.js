@@ -23,7 +23,7 @@ db.run(`
     id INTEGER PRIMARY KEY,
     projectID INTEGER,
     description TEXT,
-    value DECIMAL,
+    value TEXT,
     type TEXT,
     date TIMESTAMP
   );
@@ -257,7 +257,7 @@ ipcMain.handle('log-handler', async (req, data) => {
 
 async function inputLog(log){
   const sqlStatement = `INSERT INTO logs (projectID, description, value, type, date) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`;
-  const params = [log.projectID, log.description, log.value, log.type];
+  const params = [log.projectID, log.description, log.value.toString(), log.type];
   const result = databaseHandler('run', sqlStatement, params);
   return result;
 }

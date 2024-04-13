@@ -26,7 +26,9 @@ inputSubmit_el.addEventListener('click', () => {
     }
     const formatValue = () => {
         const isNegative = typeInput_el.value === 'expense' ? '-' : '';
-        const value = `${isNegative}${inputDollar_el.value}.${inputDecimal_el.value}`;
+        const decimalValue = inputDecimal_el.value;
+        const formatDecimal = decimalValue.length < 2 ? `${decimalValue}0` : decimalValue;
+        const value = `${isNegative}${inputDollar_el.value}.${formatDecimal}`;
         return value;
     }
     const log = {
