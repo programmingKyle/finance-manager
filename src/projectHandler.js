@@ -126,10 +126,11 @@ function deleteProjectListeners(){
         overlayContainer_el.style.display = 'none';
     });
 
-    confirmDeleteButton_el.addEventListener('click', () => {
+    confirmDeleteButton_el.addEventListener('click', async () => {
         if (confirmDeleteInput_el.value === '' || confirmDeleteInput_el.value !== 'DELETE'){
             errorHandling(confirmDeleteInput_el);
             return;
         }
+        await api.projectHandler({request: 'Delete', id: currentProjectID});
     });
 }

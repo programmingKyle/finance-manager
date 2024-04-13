@@ -195,7 +195,9 @@ ipcMain.handle('project-handler', async (req, data) => {
       break;
     case 'Edit':
       result = await editProject(data.id, data.newName, data.newCurrency);
-      console.log(result);
+      break;
+    case 'Delete':
+      result = await deleteProject(data.id);
       break;
   }
   return result;
@@ -220,6 +222,22 @@ async function viewProjects(type){
   const params = [type];
   const result = databaseHandler('all', sqlStatement, params);
   return result;
+}
+
+async function deleteProject(id){
+  let result;
+
+  const projectSql = `DELETE FROM projects WHERE id = ?`;
+  const logSql = `DELETE FROM logs WHERE projectID = ?`;
+  const params = [id];
+  
+  try {
+    await databaseHandler('run', projectSql, params);
+    await databaseHandler('run', logSql, params);
+    result = true;
+  } catch (err){
+    result = false;
+  }
 }
 
 ipcMain.handle('log-handler', async (req, data) => {
