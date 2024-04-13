@@ -211,7 +211,7 @@ async function editProject(id, newName, newCurrency){
 }
 
 async function addProject(name, currency, type){
-  const sqlStatement = `INSERT INTO projects (name, currency, type, dateCreated, dateModified) VALUES (?, ?, ?, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP)`;
+  const sqlStatement = `INSERT INTO projects (name, currency, type, dateCreated, dateModified) VALUES (?, ?, ?, datetime("now", "localtime"), datetime("now", "localtime"))`;
   const params = [name, currency, type];
   const result = databaseHandler('run', sqlStatement, params);
   return result;
@@ -256,10 +256,10 @@ ipcMain.handle('log-handler', async (req, data) => {
 });
 
 async function inputLog(log){
-  const sqlStatement = `INSERT INTO logs (projectID, description, value, type, date) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`;
+  const sqlStatement = `INSERT INTO logs (projectID, description, value, type, date) VALUES (?, ?, ?, ?, datetime("now", "localtime"))`;
   const logParams = [log.projectID, log.description, log.value.toString(), log.type];
 
-  const projectStatement = `UPDATE projects SET dateModified = CURRENT_TIMESTAMP WHERE id = ?`;
+  const projectStatement = `UPDATE projects SET dateModified = datetime("now", "localtime") WHERE id = ?`;
   const projectParams = [log.projectID];
   
   try {
