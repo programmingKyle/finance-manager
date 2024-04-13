@@ -257,9 +257,18 @@ ipcMain.handle('log-handler', async (req, data) => {
 
 async function inputLog(log){
   const sqlStatement = `INSERT INTO logs (projectID, description, value, type, date) VALUES (?, ?, ?, ?, CURRENT_TIMESTAMP)`;
-  const params = [log.projectID, log.description, log.value.toString(), log.type];
-  const result = databaseHandler('run', sqlStatement, params);
-  return result;
+  const logParams = [log.projectID, log.description, log.value.toString(), log.type];
+
+  const projectStatement = `UPDATE projects SET dateModified = CURRENT_TIMESTAMP WHERE id = ?`;
+  const projectParams = [log.projectID];
+  
+  try {
+    await databaseHandler('run', sqlStatement, logParams);
+    await databaseHandler('run', projectStatement, projectParams);
+    return true;
+  } catch (err){
+    return false;
+  }
 }
 
 async function viewLog(projectID){
