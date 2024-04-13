@@ -7,6 +7,8 @@ const logSuccessText_el = document.getElementById('logSuccessText');
 
 // Going to need currencyText_el
 
+const inputList = [descriptionInput_el, inputDollar_el, inputDecimal_el];
+
 inputDecimal_el.addEventListener('input', () => {
     maxCharacterInput(inputDecimal_el, 2);
 });
@@ -39,12 +41,19 @@ inputSubmit_el.addEventListener('click', () => {
     };
     const isSuccessful = api.logHandler({request: 'log', log});
     if (isSuccessful){
+        clearInputs(inputList);
         logDisplay(inputSubmit_el, logSuccessText_el, 'Log Successful');
         getLogContent();
     } else {
         logDisplay(inputSubmit_el, logSuccessText_el, 'Log Failed');
     }
 });
+
+function clearInputs(inputs){
+    inputs.forEach(element => {
+        element.value = '';
+    });
+}
 
 function logDisplay(button, text, message){
     button.style.display = 'none';
