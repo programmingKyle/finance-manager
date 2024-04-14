@@ -37,7 +37,7 @@ function addProjectListeners(){
             return;
         }
                 
-        const result = await api.projectHandler({request: 'Add', name: projectNameInput_el.value, currency: currencyInput_el.value, type: projectTypeSelected});
+        const result = await api.projectHandler({request: 'Add', name: projectNameInput_el.value, currency: currencyInput_el.value, type: navSelected});
         if (result === 'duplicate'){
             errorHandling(projectNameInput_el);
             return;
@@ -49,7 +49,7 @@ function addProjectListeners(){
 
 async function populateProjectList(){
     projectListContainer_el.innerHTML = '';
-    const results = await api.projectHandler({request: 'View', type: projectTypeSelected});
+    const results = await api.projectHandler({request: 'View', type: navSelected});
     const sortedResults = results.sort((a, b) => new Date(b.dateModified) - new Date(a.dateModified));
     sortedResults.forEach(element => {
         const projectButton_el = document.createElement('button');

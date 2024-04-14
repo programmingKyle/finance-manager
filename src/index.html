@@ -23,9 +23,10 @@
 
       <div id="homeView" class="app-content-grid">
         <div id="navDiv" style="overflow: hidden; display: grid; grid-template-rows: auto 1fr;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 5px;">
+          <div style="display: grid; grid-template-columns: 1fr 1fr auto; grid-gap: 5px;">
             <button id="activeNavButton" class="nav-button active">Active</button>
             <button id="simNavButton" class="nav-button">Simulated</button>
+            <button id="optionNavButton" class="nav-button fas fa-gear"></button>
           </div>  
           <div class="container" style="align-content: start; overflow: hidden;">
             <div class="button-header-container">
@@ -131,6 +132,7 @@
   <script src="viewHandler.js"></script>
   <script src="logInputs.js"></script>
   <script src="logContent.js"></script>
+  <script src="options.js"></script>
 
   <script src="./graphs/graphHandler.js"></script>
   <script src="./graphs/activeComb.js"></script>

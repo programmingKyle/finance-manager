@@ -2,25 +2,38 @@ const activeNavButton_el = document.getElementById('activeNavButton');
 const simNavButton_el = document.getElementById('simNavButton');
 const selectNavText_el = document.getElementById('selectNavText');
 const projectListContainer_el = document.getElementById('projectListContainer');
+const optionNavButton_el = document.getElementById('optionNavButton');
 
-let projectTypeSelected = 'active';
+let navSelected = 'active';
+
+const navElements = [activeNavButton_el, simNavButton_el, optionNavButton_el];
 
 activeNavButton_el.addEventListener('click', async () => {
     selectNavText_el.textContent = 'Active';
-    projectTypeSelected = 'active';
+    navSelected = 'active';
     await populateProjectList();
-    if (simNavButton_el.classList.contains('active')){
-        simNavButton_el.classList.remove('active');
-    }
-    activeNavButton_el.classList.add('active');
+    toggleNav(activeNavButton_el);
 });
 
 simNavButton_el.addEventListener('click', async () => {
     selectNavText_el.textContent = 'Simulated';
-    projectTypeSelected = 'simulated';
+    navSelected = 'simulated';
     await populateProjectList();
-    if (activeNavButton_el.classList.contains('active')){
-        activeNavButton_el.classList.remove('active');
-    }
-    simNavButton_el.classList.add('active');
+    toggleNav(simNavButton_el);
 });
+
+optionNavButton_el.addEventListener('click', async () => {
+    selectNavText_el.textContent = 'Options';
+    navSelected = 'options';
+    await populateOptions();
+    toggleNav(optionNavButton_el);
+});
+
+function toggleNav(activeTab){
+    activeTab.classList.add('active');
+    navElements.forEach(element => {
+        if (element !== activeTab){
+            element.classList.remove('active');
+        }
+    });
+}
