@@ -24,6 +24,8 @@ async function populateGraphOptions(){
 }
 
 async function graphOptionItems(){
+    const result = await api.getCurrencies();
+    console.log(result);
     const itemDiv_el = document.createElement('div');
     itemDiv_el.classList.add('graph-options-item');
 
