@@ -278,9 +278,9 @@ async function viewLog(projectID){
   return result;
 }
 
-ipcMain.handle('get-currencies', () => {
+ipcMain.handle('get-currencies', async () => {
   const sqlStatement = `SELECT DISTINCT currency FROM projects`;
   const params = [];
-  const result = databaseHandler('all', sqlStatement, params);
+  const result = await databaseHandler('all', sqlStatement, params);
   return result;
 });

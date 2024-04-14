@@ -1,7 +1,9 @@
 let projectListDiv_el;
+let currencies;
 
 async function populateOptions(){
     projectListContainer_el.innerHTML = '';
+    currencies = await api.getCurrencies();
     await populateGraphOptions();
     await graphOptionItems();
 }
@@ -15,6 +17,15 @@ async function populateGraphOptions(){
 
     const currencySelect_el = document.createElement('select');
 
+    currencies.forEach(element => {
+        console.log(element.currency);
+        const selectItem_el = document.createElement('option');
+        selectItem_el.textContent = element.currency;
+        selectItem_el.value = element.currency;
+
+        currencySelect_el.append(selectItem_el);
+    });
+
     projectListDiv_el = document.createElement('div');
     projectListDiv_el.classList.add('graph-options-item');
 
@@ -24,8 +35,7 @@ async function populateGraphOptions(){
 }
 
 async function graphOptionItems(){
-    const result = await api.getCurrencies();
-    console.log(result);
+    
     const itemDiv_el = document.createElement('div');
     itemDiv_el.classList.add('graph-options-item');
 
