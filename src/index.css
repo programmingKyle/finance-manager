@@ -327,3 +327,29 @@ select.error {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+.graph-options-grid {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  grid-gap: 5px;
+  padding: 10px;
+  background-color: #1B1B1B;
+  border-radius: 5px;
+}
+
+.graph-options-item {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  grid-gap: 10px;
+  align-items: center;
+  cursor: pointer;
+  padding: 0px 5px;
+}
+
+.graph-options-item h5 {
+  color: gray;
+}
+
+.graph-options-item h5.active {
+  color: #7C90DB;
+}
