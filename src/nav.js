@@ -30,10 +30,19 @@ optionNavButton_el.addEventListener('click', async () => {
 });
 
 function toggleNav(activeTab){
+    toggleAddButton();
     activeTab.classList.add('active');
     navElements.forEach(element => {
         if (element !== activeTab){
             element.classList.remove('active');
         }
     });
+}
+
+function toggleAddButton(){
+    if (navSelected === 'options'){
+        addProjectButton_el.style.visibility = 'hidden';
+    } else {
+        addProjectButton_el.style.visibility = 'visible';
+    }
 }
