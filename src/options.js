@@ -16,7 +16,6 @@ async function populateGraphOptions(){
 
     const currencySelect_el = document.createElement('select');
     currencies.forEach(element => {
-        console.log(element.currency);
         const selectItem_el = document.createElement('option');
         selectItem_el.textContent = element.currency;
         selectItem_el.value = element.currency;
@@ -39,25 +38,27 @@ async function populateGraphOptions(){
 async function currencySelectListener(select){
     await graphOptionItems(select.value);
     select.addEventListener('change', async () => {
+        projectListDiv_el.innerHTML = '';
         await graphOptionItems(select.value);
     });
 }
 
 async function graphOptionItems(currency){
     const result = await api.projectListFromCurrency({currency});
-    console.log(result);
-    const itemDiv_el = document.createElement('div');
-    itemDiv_el.style.gridColumn = 'span 2';
-    itemDiv_el.classList.add('graph-options-item');
 
-    const itemToggleIcon_el = document.createElement('h5');
-    itemToggleIcon_el.classList.add('fas', 'fa-check');
+    result.forEach(element => {
+        const itemDiv_el = document.createElement('div');
+        itemDiv_el.style.gridColumn = 'span 2';
+        itemDiv_el.classList.add('graph-options-item');
 
-    const itemLabel_el = document.createElement('h5');
-    itemLabel_el.textContent = 'Test Project';
+        const itemToggleIcon_el = document.createElement('h5');
+        itemToggleIcon_el.classList.add('fas', 'fa-check');
 
-    itemDiv_el.append(itemToggleIcon_el, itemLabel_el);
+        const itemLabel_el = document.createElement('h5');
+        itemLabel_el.textContent = element.name;
 
-    projectListDiv_el.append(itemDiv_el);
-    projectListDiv_el.append(itemDiv_el);
+        itemDiv_el.append(itemToggleIcon_el, itemLabel_el);
+
+        projectListDiv_el.append(itemDiv_el);
+    });
 }

@@ -287,7 +287,6 @@ ipcMain.handle('get-currencies', async () => {
 
 ipcMain.handle('project-list-from-currency', async (req, data) => {
   if (!data || !data.currency) return;
-  console.log(data.currency);
   const sqlStatement = `SELECT * FROM projects WHERE currency = ?`
   const params = [data.currency];
   const result = await databaseHandler('all', sqlStatement, params);
