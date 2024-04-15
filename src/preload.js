@@ -5,6 +5,7 @@ contextBridge.exposeInMainWorld('api', {
     projectHandler: (data) => ipcRenderer.invoke('project-handler', data),
     logHandler: (data) => ipcRenderer.invoke('log-handler', data),
     getCurrencies: () => ipcRenderer.invoke('get-currencies'),
+    projectListFromCurrency: (data) => ipcRenderer.invoke('project-list-from-currency', data),
 });
 
 contextBridge.exposeInMainWorld('autoUpdater', {
