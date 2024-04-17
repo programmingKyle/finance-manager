@@ -12,6 +12,7 @@ db.run(`
     name TEXT,
     currency TEXT,
     type TEXT,
+    homeGraph INT,
     dateCreated TIMESTAMP,
     dateModified TIMESTAMP,
     UNIQUE(name, type)
@@ -211,8 +212,8 @@ async function editProject(id, newName, newCurrency){
 }
 
 async function addProject(name, currency, type){
-  const sqlStatement = `INSERT INTO projects (name, currency, type, dateCreated, dateModified) VALUES (?, ?, ?, datetime("now", "localtime"), datetime("now", "localtime"))`;
-  const params = [name, currency, type];
+  const sqlStatement = `INSERT INTO projects (name, currency, type, homeGraph, dateCreated, dateModified) VALUES (?, ?, ?, ?, datetime("now", "localtime"), datetime("now", "localtime"))`;
+  const params = [name, currency, type, 1];
   const result = databaseHandler('run', sqlStatement, params);
   return result;
 }

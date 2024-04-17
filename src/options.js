@@ -47,12 +47,13 @@ async function graphOptionItems(currency){
     const result = await api.projectListFromCurrency({currency});
 
     result.forEach(element => {
+        console.log(element);
         const itemDiv_el = document.createElement('div');
         itemDiv_el.style.gridColumn = 'span 2';
         itemDiv_el.classList.add('graph-options-item');
 
-        const itemToggleIcon_el = document.createElement('h5');
-        itemToggleIcon_el.classList.add('fas', 'fa-check');
+        const itemToggleIcon_el = document.createElement('h6');
+        itemToggleIcon_el.classList.add('fa-regular', 'fa-circle');
 
         const itemLabel_el = document.createElement('h5');
         itemLabel_el.textContent = element.name;
