@@ -40,6 +40,7 @@ async function currencySelectListener(select){
     select.addEventListener('change', async () => {
         projectListDiv_el.innerHTML = '';
         await graphOptionItems(select.value);
+        await api.currencyOptionsHandler({request: 'Save', currency: select.value});
     });
 }
 

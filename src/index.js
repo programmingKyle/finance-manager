@@ -225,7 +225,7 @@ async function editProject(id, newName, newCurrency){
 }
 
 async function addProject(name, currency, type){
-  if (!fs.existsSync(optionsFile)){
+  if (!fs.existsSync(currencyOptions)){
     await saveCurrencyOptions(currency)
   }  
   const sqlStatement = `INSERT INTO projects (name, currency, type, homeGraph, dateCreated, dateModified) VALUES (?, ?, ?, ?, datetime("now", "localtime"), datetime("now", "localtime"))`;
@@ -310,13 +310,13 @@ ipcMain.handle('project-list-from-currency', async (req, data) => {
   return result;
 });
 
-ipcMain.handle('currency-options-handler', (req, data) => {
+ipcMain.handle('currency-options-handler', async (req, data) => {
   if (!data || !data.request) return;
   switch (data.request) {
     case 'View':
       break;
     case 'Save':
-      saveCurrencyOptions(data.currency);
+      await saveCurrencyOptions(data.currency);
       break;
   }
 });
