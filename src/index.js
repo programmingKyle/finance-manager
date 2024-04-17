@@ -312,13 +312,16 @@ ipcMain.handle('project-list-from-currency', async (req, data) => {
 
 ipcMain.handle('currency-options-handler', async (req, data) => {
   if (!data || !data.request) return;
+  let results;
   switch (data.request) {
     case 'View':
+      results = await viewCurrencyOptions();
       break;
     case 'Save':
       await saveCurrencyOptions(data.currency);
       break;
   }
+  return results;
 });
 
 async function saveCurrencyOptions(currency){
@@ -332,5 +335,18 @@ async function saveCurrencyOptions(currency){
     if (err){
       console.error(err);
     }
+  });
+}
+
+async function viewCurrencyOptions(){
+  return new Promise((resolve, reject) => {
+    fs.readFile(currencyOptions, 'utf-8', (err,data) => {
+      if (err){
+        reject(err);
+      } else {
+        const jsonData = JSON.parse(data);
+        resolve(jsonData);
+      }
+    });
   });
 }

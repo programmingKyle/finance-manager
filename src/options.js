@@ -1,5 +1,15 @@
 let projectListDiv_el;
 let currencies;
+let selectedCurrency;
+
+document.addEventListener('DOMContentLoaded', async () => {
+    await getSelectedCurrency();
+});
+
+async function getSelectedCurrency(){
+    selectedCurrency = await api.currencyOptionsHandler({request: 'View'});
+    console.log(selectedCurrency);
+}
 
 async function populateOptions(){
     projectListContainer_el.innerHTML = '';
