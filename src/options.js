@@ -54,7 +54,6 @@ async function graphOptionItems(currency){
         const itemToggleIcon_el = document.createElement('h6');
         const itemLabel_el = document.createElement('h5');
         itemLabel_el.textContent = element.name;
-
         if (element.homeGraph === 1){
             // If home graph is enabled
             itemToggleIcon_el.classList.add('fas', 'fa-check', 'active');
@@ -73,8 +72,7 @@ async function graphOptionItems(currency){
     });
 }
 
-function toggleProjectItem(icon, label, data){
-    console.log(data);
+async function toggleProjectItem(icon, label, data){
     if (data.homeGraph === 1){
         icon.classList.remove('fas', 'fa-check', 'active');
         icon.classList.add('fa-regular', 'fa-circle');
@@ -86,4 +84,5 @@ function toggleProjectItem(icon, label, data){
         label.classList.add('active');
         data.homeGraph = 1;
     }
+    const result = await api.projectHandler({request: 'HomeGraph', id: data.id, isHomeGraphed: data.homeGraph});
 }

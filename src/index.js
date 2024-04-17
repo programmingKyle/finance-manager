@@ -200,9 +200,19 @@ ipcMain.handle('project-handler', async (req, data) => {
     case 'Delete':
       result = await deleteProject(data.id);
       break;
+    case 'HomeGraph':
+      result = await homeGraphProject(data.id, data.isHomeGraphed);
+      break;
   }
   return result;
 });
+
+async function homeGraphProject(id, isHomeGraphed){
+  const sqlStatement = `UPDATE projects SET homeGraph = ? WHERE id = ?`;
+  const params = [isHomeGraphed, id];
+  const result = databaseHandler('run', sqlStatement, params);
+  return result;
+}
 
 async function editProject(id, newName, newCurrency){
   const sqlStatement = `UPDATE projects SET name = ?, currency = ? WHERE id = ?`;
