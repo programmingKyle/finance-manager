@@ -1,10 +1,13 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const path = require('node:path');
 const { autoUpdater } = require('electron-updater');
+const fs = require('fs');
 
 const sqlite3 = require('sqlite3').verbose();
 const appDataPath = app.getPath('userData');
 const db = new sqlite3.Database(`${appDataPath}/database.db`);
+
+const currencyOptions = `${appDataPath}\\currency.json`;
 
 db.run(`
   CREATE TABLE IF NOT EXISTS projects (
@@ -222,6 +225,9 @@ async function editProject(id, newName, newCurrency){
 }
 
 async function addProject(name, currency, type){
+  if (!fs.existsSync(optionsFile)){
+    await saveCurrencyOptions(currency)
+  }  
   const sqlStatement = `INSERT INTO projects (name, currency, type, homeGraph, dateCreated, dateModified) VALUES (?, ?, ?, ?, datetime("now", "localtime"), datetime("now", "localtime"))`;
   const params = [name, currency, type, 1];
   const result = databaseHandler('run', sqlStatement, params);
@@ -303,3 +309,28 @@ ipcMain.handle('project-list-from-currency', async (req, data) => {
   const result = await databaseHandler('all', sqlStatement, params);
   return result;
 });
+
+ipcMain.handle('currency-options-handler', (req, data) => {
+  if (!data || !data.request) return;
+  switch (data.request) {
+    case 'View':
+      break;
+    case 'Save':
+      saveCurrencyOptions(data.currency);
+      break;
+  }
+});
+
+async function saveCurrencyOptions(currency){
+  const settings = {
+    currency: currency
+  }
+
+  const jsonSettings = JSON.stringify(settings, null, 2);
+
+  fs.writeFile(currencyOptions, jsonSettings, (err) => {
+    if (err){
+      console.error(err);
+    }
+  });
+}
