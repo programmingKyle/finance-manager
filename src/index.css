@@ -346,10 +346,12 @@ select.error {
   padding: 0px 5px;
 }
 
-.graph-options-item h5 {
+.graph-options-item h5,
+.graph-options-item h6 {
   color: gray;
 }
 
-.graph-options-item h5.active {
+.graph-options-item h5.active,
+.graph-options-item h6.active {
   color: #7C90DB;
 }

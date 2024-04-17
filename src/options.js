@@ -47,19 +47,32 @@ async function graphOptionItems(currency){
     const result = await api.projectListFromCurrency({currency});
 
     result.forEach(element => {
-        console.log(element);
         const itemDiv_el = document.createElement('div');
         itemDiv_el.style.gridColumn = 'span 2';
         itemDiv_el.classList.add('graph-options-item');
 
         const itemToggleIcon_el = document.createElement('h6');
-        itemToggleIcon_el.classList.add('fa-regular', 'fa-circle');
-
         const itemLabel_el = document.createElement('h5');
         itemLabel_el.textContent = element.name;
 
+        if (element.homeGraph === 1){
+            // If home graph is enabled
+            itemToggleIcon_el.classList.add('fas', 'fa-check', 'active');
+            itemLabel_el.classList.add('active');
+        } else {
+            itemToggleIcon_el.classList.add('fa-regular', 'fa-circle');
+        }
+
         itemDiv_el.append(itemToggleIcon_el, itemLabel_el);
+
+        itemDiv_el.addEventListener('click', () => {
+            toggleProjectItem(element)
+        });
 
         projectListDiv_el.append(itemDiv_el);
     });
+}
+
+function toggleProjectItem(item){
+    
 }
