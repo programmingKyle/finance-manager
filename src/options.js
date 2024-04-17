@@ -66,13 +66,24 @@ async function graphOptionItems(currency){
         itemDiv_el.append(itemToggleIcon_el, itemLabel_el);
 
         itemDiv_el.addEventListener('click', () => {
-            toggleProjectItem(element)
+            toggleProjectItem(itemToggleIcon_el, itemLabel_el, element)
         });
 
         projectListDiv_el.append(itemDiv_el);
     });
 }
 
-function toggleProjectItem(item){
-    
+function toggleProjectItem(icon, label, data){
+    console.log(data);
+    if (data.homeGraph === 1){
+        icon.classList.remove('fas', 'fa-check', 'active');
+        icon.classList.add('fa-regular', 'fa-circle');
+        label.classList.remove('active');
+        data.homeGraph = 0;
+    } else {
+        icon.classList.add('fas', 'fa-check', 'active');
+        icon.classList.remove('fa-regular', 'fa-circle');
+        label.classList.add('active');
+        data.homeGraph = 1;
+    }
 }
