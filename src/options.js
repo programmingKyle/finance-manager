@@ -73,16 +73,21 @@ async function graphOptionItems(currency){
 }
 
 async function toggleProjectItem(icon, label, data){
-    if (data.homeGraph === 1){
-        icon.classList.remove('fas', 'fa-check', 'active');
-        icon.classList.add('fa-regular', 'fa-circle');
-        label.classList.remove('active');
-        data.homeGraph = 0;
-    } else {
-        icon.classList.add('fas', 'fa-check', 'active');
-        icon.classList.remove('fa-regular', 'fa-circle');
-        label.classList.add('active');
-        data.homeGraph = 1;
-    }
+    data.homeGraph === 1 ? data.homeGraph = 0 : data.homeGraph = 1;
     const result = await api.projectHandler({request: 'HomeGraph', id: data.id, isHomeGraphed: data.homeGraph});
+    if (result){
+        if (data.homeGraph === 1){
+            icon.classList.add('fas', 'fa-check', 'active');
+            icon.classList.remove('fa-regular', 'fa-circle');
+            label.classList.add('active');    
+        } else {
+            icon.classList.remove('fas', 'fa-check', 'active');
+            icon.classList.add('fa-regular', 'fa-circle');
+            label.classList.remove('active');
+        }
+    } else {
+        console.log('error');
+        data.homeGraph === 1 ? data.homeGraph = 0 : data.homeGraph = 1;
+        return;
+    }
 }
