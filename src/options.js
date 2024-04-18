@@ -8,7 +8,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function getSelectedCurrency(){
     selectedCurrency = await api.currencyOptionsHandler({request: 'View'});
-    console.log(selectedCurrency);
 }
 
 async function populateOptions(){
@@ -32,7 +31,7 @@ async function populateGraphOptions(){
 
         currencySelect_el.append(selectItem_el);
     });
-
+    currencySelect_el.value = selectedCurrency.currency;
     currencySelectListener(currencySelect_el);
 
     projectListDiv_el = document.createElement('div');
@@ -97,7 +96,6 @@ async function toggleProjectItem(icon, label, data){
             label.classList.remove('active');
         }
     } else {
-        console.log('error');
         data.homeGraph === 1 ? data.homeGraph = 0 : data.homeGraph = 1;
         return;
     }
