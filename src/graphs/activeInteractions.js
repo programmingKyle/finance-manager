@@ -8,24 +8,16 @@ function getRandomInt(min, max) {
 }
 
 function createActiveInteractionsGraph(data) {
-  console.log(data);
-  //const interactionData = data.map(data.interactionCount);
-  //console.log(interactionData);
-  const monthLabels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-  const activeInteractionsData = [];
-
-  // Generate random number of interactions for each month
-  for (let i = 0; i < 12; i++) {
-    activeInteractionsData.push(getRandomInt(5, 25)); // Generate random value and add to data array
-  }
+  const interactionCount = data.map(data => data.interactionCount);
+  const interactionDate = data.map(data => data.date);
 
   return new Chart(ctxInteractions, {
     type: 'bar',
     data: {
-      labels: monthLabels,
+      labels: interactionDate,
       datasets: [{
         label: 'Active Interactions',
-        data: activeInteractionsData,
+        data: interactionCount,
         backgroundColor: '#1976D2',
         borderWidth: 1
       }]
