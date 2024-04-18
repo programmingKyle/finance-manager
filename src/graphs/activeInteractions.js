@@ -73,14 +73,49 @@ function createActiveInteractionsGraph() {
   });
 }
 
-
-function populateActiveInteractions(){
+async function populateActiveInteractions(){
   interactionsGraph = createActiveInteractionsGraph();
-  getActiveInteractions();
+  const interactionsData = await getActiveInteractions();
+  console.log(interactionsData);
 }
 
 async function getActiveInteractions(){
   // This will get the projects that have homeGraph enabled
-  const result = await api.getGraphData({request: 'GetProjects', currency: selectedCurrency.currency});
-  console.log(result);
+  const projects = await api.getGraphData({request: 'GetProjects', currency: selectedCurrency.currency});
+  const projectIDs = projects.map(project => project.id);
+  const pastMonths = await getPastMonths();
+  const interactionCounts = {};
+
+  for (const id of projectIDs){
+    const interactions = await api.getGraphData({request: 'ProjectsInteractions', projectID: id});
+    interactions.forEach(interaction => {
+      const {month, interactionCount} = interaction;
+      // Checks if the interactionsCount object already has a property to the current month
+      // If the month hasn't been encountered yet it will start the count at 0
+      if (!interactionCounts[month]){
+        interactionCounts[month] = 0;
+      }
+      interactionCounts[month] += interactionCount;
+    });
+  }
+  const result = pastMonths.map(month => ({
+    date: month,
+    interactionCount: interactionCounts[month] || 0
+  }));
+  return result;
+}
+
+async function getPastMonths() {
+  const pastMonths = [];
+  const currentDate = new Date();
+
+  for (let i = 0; i < 12; i++) {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const formattedMonth = `${year}-${month.toString().padStart(2, '0')}`;
+    pastMonths.push(formattedMonth);
+    currentDate.setMonth(currentDate.getMonth() - 1);
+  }
+
+  return pastMonths;
 }

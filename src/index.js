@@ -352,12 +352,14 @@ async function viewCurrencyOptions(){
 }
 
 ipcMain.handle('get-graph-data', async (req, data) => {
-  console.log(data);
   if (!data || !data.request) return;
   let result;
   switch (data.request){
     case 'GetProjects':
       result = await getSelectedProjects(data.currency);
+      break;
+    case 'ProjectsInteractions':
+      result = await getProjectInteractions(data.projectID);
       break;
   }
   return result;
@@ -366,6 +368,26 @@ ipcMain.handle('get-graph-data', async (req, data) => {
 async function getSelectedProjects(currency){
   const sqlStatement = `SELECT * FROM projects WHERE currency = ? and homeGraph = 1`;
   const params = [currency];
+  const result = await databaseHandler('all', sqlStatement, params);
+  return result;
+}
+
+async function getProjectInteractions(id) {
+  const sqlStatement = `
+    SELECT 
+      strftime('%Y-%m', date) AS month,
+      COUNT(*) AS interactionCount
+    FROM 
+      logs 
+    WHERE 
+      projectID = ?
+      AND date >= DATE('now', '-12 months')
+    GROUP BY 
+      strftime('%Y-%m', date)
+    ORDER BY 
+      month;
+  `;
+  const params = [id];
   const result = await databaseHandler('all', sqlStatement, params);
   return result;
 }
