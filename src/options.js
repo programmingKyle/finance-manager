@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     await getSelectedCurrency();
 
     // Home View Graph
-    populateActiveInteractions();
+    interactionsGraph = await populateActiveInteractions();
 });
 
 async function getSelectedCurrency(){

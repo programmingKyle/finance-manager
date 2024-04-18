@@ -7,7 +7,10 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-function createActiveInteractionsGraph() {
+function createActiveInteractionsGraph(data) {
+  console.log(data);
+  //const interactionData = data.map(data.interactionCount);
+  //console.log(interactionData);
   const monthLabels = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
   const activeInteractionsData = [];
 
@@ -74,9 +77,8 @@ function createActiveInteractionsGraph() {
 }
 
 async function populateActiveInteractions(){
-  interactionsGraph = createActiveInteractionsGraph();
   const interactionsData = await getActiveInteractions();
-  console.log(interactionsData);
+  return createActiveInteractionsGraph(interactionsData);
 }
 
 async function getActiveInteractions(){

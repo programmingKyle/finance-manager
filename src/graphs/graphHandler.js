@@ -59,8 +59,8 @@ window.addEventListener('resize', () => {
     if (projectGrowthGraph){
         projectGrowthGraph.destroy();
     }
-    resizeTimer = setTimeout(() => {
-        interactionsGraph = createActiveInteractionsGraph();
+    resizeTimer = setTimeout(async () => {
+        interactionsGraph = await populateActiveInteractions();
         combGraph = createSalesExpensesComparisonGraph();
         projectCombGraph = createProjectSaleExpensesGraph();
         projectGrowthGraph = createProjectGrowthGraph();
