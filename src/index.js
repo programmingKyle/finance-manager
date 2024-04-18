@@ -350,3 +350,22 @@ async function viewCurrencyOptions(){
     });
   });
 }
+
+ipcMain.handle('get-graph-data', async (req, data) => {
+  console.log(data);
+  if (!data || !data.request) return;
+  let result;
+  switch (data.request){
+    case 'GetProjects':
+      result = await getSelectedProjects(data.currency);
+      break;
+  }
+  return result;
+});
+
+async function getSelectedProjects(currency){
+  const sqlStatement = `SELECT * FROM projects WHERE currency = ? and homeGraph = 1`;
+  const params = [currency];
+  const result = await databaseHandler('all', sqlStatement, params);
+  return result;
+}

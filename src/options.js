@@ -4,6 +4,9 @@ let selectedCurrency;
 
 document.addEventListener('DOMContentLoaded', async () => {
     await getSelectedCurrency();
+
+    // Home View Graph
+    populateActiveInteractions();
 });
 
 async function getSelectedCurrency(){

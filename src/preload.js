@@ -7,6 +7,7 @@ contextBridge.exposeInMainWorld('api', {
     getCurrencies: () => ipcRenderer.invoke('get-currencies'),
     projectListFromCurrency: (data) => ipcRenderer.invoke('project-list-from-currency', data),
     currencyOptionsHandler: (data) => ipcRenderer.invoke('currency-options-handler', data),
+    getGraphData: (data) => ipcRenderer.invoke('get-graph-data', data),
 });
 
 contextBridge.exposeInMainWorld('autoUpdater', {

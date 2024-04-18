@@ -73,6 +73,14 @@ function createActiveInteractionsGraph() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+
+function populateActiveInteractions(){
   interactionsGraph = createActiveInteractionsGraph();
-});
+  getActiveInteractions();
+}
+
+async function getActiveInteractions(){
+  // This will get the projects that have homeGraph enabled
+  const result = await api.getGraphData({request: 'GetProjects', currency: selectedCurrency.currency});
+  console.log(result);
+}
