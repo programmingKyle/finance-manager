@@ -83,7 +83,7 @@ async function getActiveInteractions(){
   const interactionCounts = {};
 
   for (const id of projectIDs){
-    const interactions = await api.getGraphData({request: 'ProjectsInteractions', projectID: id});
+    const interactions = await api.getGraphData({request: 'ProjectsCount', projectID: id});
     interactions.forEach(interaction => {
       const {month, interactionCount} = interaction;
       // Checks if the interactionsCount object already has a property to the current month

@@ -89,11 +89,23 @@ function createSalesExpensesComparisonGraph() {
 }
 
 async function populateActiveCompGraph(){
-  await getHomeSales();
+  await getCompGraphData();
   return createSalesExpensesComparisonGraph();
 }
 
 // Used for home view which is a total across all projects
-async function getHomeSales(){
+async function getCompGraphData(){
   console.log(graphProjects);
+  const projectIDs = graphProjects.map(project => project.id);
+  const pastMonths = await getPastMonths();
+  // This will be used to return the month as well as that months total sales
+  const saleTotals = {};
+  const expenseTotals = {};
+
+  for (const id of projectIDs){
+    const projectSales = await api.getGraphData({request: 'ProjectInteractions', projectID: id, type: 'sale'})
+    const projectExpenses = await api.getGraphData({request: 'ProjectInteractions', projectID: id, type: 'expense'})
+    console.log(projectSales);
+    console.log(projectExpenses);
+  }
 }
