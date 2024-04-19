@@ -3,6 +3,8 @@ const ctxInteractions = activeInteractionsGraph_el.getContext('2d');
 
 let interactionsGraph;
 
+let graphProjects;
+
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
@@ -75,8 +77,8 @@ async function populateActiveInteractions(){
 
 async function getActiveInteractions(){
   // This will get the projects that have homeGraph enabled
-  const projects = await api.getGraphData({request: 'GetProjects', currency: selectedCurrency.currency});
-  const projectIDs = projects.map(project => project.id);
+  graphProjects = await api.getGraphData({request: 'GetProjects', currency: selectedCurrency.currency});
+  const projectIDs = graphProjects.map(project => project.id);
   const pastMonths = await getPastMonths();
   const interactionCounts = {};
 

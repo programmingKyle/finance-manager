@@ -61,7 +61,7 @@ window.addEventListener('resize', () => {
     }
     resizeTimer = setTimeout(async () => {
         interactionsGraph = await populateActiveInteractions();
-        combGraph = createSalesExpensesComparisonGraph();
+        combGraph = await populateActiveCompGraph();
         projectCombGraph = createProjectSaleExpensesGraph();
         projectGrowthGraph = createProjectGrowthGraph();
     }, 500);

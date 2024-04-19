@@ -7,6 +7,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Home View Graph
     interactionsGraph = await populateActiveInteractions();
+    combGraph = await populateActiveCompGraph();
 });
 
 async function getSelectedCurrency(){

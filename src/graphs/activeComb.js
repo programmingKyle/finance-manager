@@ -87,7 +87,13 @@ function createSalesExpensesComparisonGraph() {
       },
     });
 }
-  
-document.addEventListener('DOMContentLoaded', () => {
-  combGraph = createSalesExpensesComparisonGraph();
-});
+
+async function populateActiveCompGraph(){
+  await getHomeSales();
+  return createSalesExpensesComparisonGraph();
+}
+
+// Used for home view which is a total across all projects
+async function getHomeSales(){
+  console.log(graphProjects);
+}
