@@ -51,6 +51,8 @@ async function currencySelectListener(select){
         projectListDiv_el.innerHTML = '';
         await graphOptionItems(select.value);
         await api.currencyOptionsHandler({request: 'Save', currency: select.value});
+        await getSelectedCurrency();
+        await populateHomeViewGraphs();
     });
 }
 

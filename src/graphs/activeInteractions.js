@@ -6,10 +6,6 @@ let interactionsGraph;
 let graphProjects;
 let pastMonths;
 
-function getRandomInt(min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
 function createActiveInteractionsGraph(data) {
   const interactionCount = data.map(data => data.interactionCount);
   const interactionDate = data.map(data => data.date);
@@ -73,6 +69,7 @@ function createActiveInteractionsGraph(data) {
 
 async function populateActiveInteractions(){
   const interactionsData = await getActiveInteractions();
+  console.log(interactionsData);
   return createActiveInteractionsGraph(interactionsData);
 }
 
