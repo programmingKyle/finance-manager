@@ -69,7 +69,6 @@ function createActiveInteractionsGraph(data) {
 
 async function populateActiveInteractions(){
   const interactionsData = await getActiveInteractions();
-  console.log(interactionsData);
   return createActiveInteractionsGraph(interactionsData);
 }
 

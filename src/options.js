@@ -102,4 +102,5 @@ async function toggleProjectItem(icon, label, data){
         data.homeGraph === 1 ? data.homeGraph = 0 : data.homeGraph = 1;
         return;
     }
+    await populateHomeViewGraphs();
 }
