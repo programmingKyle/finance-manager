@@ -60,10 +60,13 @@ window.addEventListener('resize', () => {
         projectGrowthGraph.destroy();
     }
     resizeTimer = setTimeout(async () => {
-        interactionsGraph = await populateActiveInteractions();
-        combGraph = await populateActiveCompGraph();
-        projectCombGraph = await populateProjectCompGraph();
-        projectGrowthGraph = await populateProjectGrowthGraph();
+        if (!currentProjectID) {
+            interactionsGraph = await populateActiveInteractions();
+            combGraph = await populateActiveCompGraph();    
+        } else {
+            projectCombGraph = await populateProjectCompGraph();
+            projectGrowthGraph = await populateProjectGrowthGraph();    
+        }
     }, 500);
 });
 
@@ -79,6 +82,7 @@ async function populateHomeViewGraphs(){
 }
 
 async function populateProjectViewGraphs(){
+    if (!currentProjectID) return
     if (projectCombGraph){
         projectCombGraph.destroy();
     }

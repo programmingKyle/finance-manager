@@ -89,5 +89,18 @@ function createProjectSaleExpensesGraph() {
 }
 
 async function populateProjectCompGraph(){
+  const graphData = await getProjectCompData();
   return createProjectSaleExpensesGraph();
+}
+
+async function getProjectCompData(){
+  console.log(currentProjectID);
+  const graphData = {};
+
+  const projectSales = await api.getGraphData({ request: 'ProjectInteractions', projectID: currentProjectID, type: 'sale' });
+  const projectExpenses = await api.getGraphData({ request: 'ProjectInteractions', projectID: currentProjectID, type: 'expense' });
+  const salesValues = await calculateMonthlyValues(projectSales);
+  const expensesValues = await calculateMonthlyValues(projectExpenses);
+  console.log(salesValues);
+  console.log(expensesValues);
 }

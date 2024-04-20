@@ -56,6 +56,7 @@ async function populateProjectList(){
         projectButton_el.textContent = element.name;
 
         projectButton_el.addEventListener('click', async () => {
+            console.log(element.id);
             currentProjectID = element.id;
             projectData = element;
             changeView('project', element.name, element.currency);
@@ -68,6 +69,7 @@ async function populateProjectList(){
 }
 
 projectBackButton_el.addEventListener('click', async () => {
+    currentProjectID = null;
     changeView('home');
     populateProjectList();
     await populateHomeViewGraphs();
