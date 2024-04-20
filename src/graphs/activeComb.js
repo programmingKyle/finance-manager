@@ -98,16 +98,37 @@ async function getCompGraphData(){
   const projectIDs = graphProjects.map(project => project.id);
   // This will be used to return the month as well as that months total sales
   const graphData = {};
-  const salesValues = {};
 
   for (const id of projectIDs){
     const projectSales = await api.getGraphData({request: 'ProjectInteractions', projectID: id, type: 'sale'})
     const projectExpenses = await api.getGraphData({request: 'ProjectInteractions', projectID: id, type: 'expense'})
     const salesValues = await calculateMonthlyValues(projectSales);
     const expensesValues = await calculateMonthlyValues(projectExpenses);
-    console.log(salesValues);
-    console.log(expensesValues);
+    
+    salesValues.forEach(sale => {
+      const { date, monthTotal } = sale;
+      if (!graphData[date]){
+        graphData[date] = { sales: monthTotal, totalExpenses: 0};
+      } else {
+        graphData[date].sales += monthTotal;
+      }
+    });
+
+    expensesValues.forEach(expense => {
+      const { date, monthTotal } = expense;
+      if (!graphData[date]){
+        graphData[date] = { totalSales: 0, totalExpenses: monthTotal };
+      } else {
+        if (!graphData[date].totalExpenses) {
+          graphData[date].totalExpenses = monthTotal;
+        } else {
+          graphData[date].totalExpenses += monthTotal;
+        }
+      }
+    });
   }
+
+  console.log(graphData);
 }
 
 async function calculateMonthlyValues(values) {
@@ -126,7 +147,7 @@ async function calculateMonthlyValues(values) {
 
   const result = pastMonths.map(month => ({
     date: month,
-    monthSales: totals[month] || 0
+    monthTotal: totals[month] || 0
   }));
   return result;
 }
