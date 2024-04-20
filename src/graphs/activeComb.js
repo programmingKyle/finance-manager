@@ -89,23 +89,45 @@ function createSalesExpensesComparisonGraph() {
 }
 
 async function populateActiveCompGraph(){
-  await getCompGraphData();
+  const graphData = await getCompGraphData();
   return createSalesExpensesComparisonGraph();
 }
 
 // Used for home view which is a total across all projects
 async function getCompGraphData(){
-  console.log(graphProjects);
   const projectIDs = graphProjects.map(project => project.id);
-  const pastMonths = await getPastMonths();
   // This will be used to return the month as well as that months total sales
-  const saleTotals = {};
-  const expenseTotals = {};
+  const graphData = {};
+  const salesValues = {};
 
   for (const id of projectIDs){
     const projectSales = await api.getGraphData({request: 'ProjectInteractions', projectID: id, type: 'sale'})
     const projectExpenses = await api.getGraphData({request: 'ProjectInteractions', projectID: id, type: 'expense'})
-    console.log(projectSales);
-    console.log(projectExpenses);
+    const salesValues = await calculateMonthlyValues(projectSales);
+    const expensesValues = await calculateMonthlyValues(projectExpenses);
+    console.log(salesValues);
+    console.log(expensesValues);
   }
 }
+
+async function calculateMonthlyValues(values) {
+  const totals = {};
+  values.forEach(element => {
+    const { month, total } = element;
+    if (!totals[month]) {
+      totals[month] = 0;
+    }
+    if (total > 0) {
+      totals[month] += total;
+    } else if (total < 0) {
+      totals[month] -= total;
+    }
+  });
+
+  const result = pastMonths.map(month => ({
+    date: month,
+    monthSales: totals[month] || 0
+  }));
+  return result;
+}
+

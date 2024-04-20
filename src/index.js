@@ -399,7 +399,7 @@ async function getProjectInteraction(id, type) {
   const sqlStatement = `
     SELECT 
       strftime('%Y-%m', date) AS month,
-      SUM(value) AS totalSales
+      SUM(value) AS total
     FROM 
       logs 
     WHERE 
