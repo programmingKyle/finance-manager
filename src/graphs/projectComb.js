@@ -3,23 +3,10 @@ const projectSalesExpenses = projectCompGraph_el.getContext('2d');
 
 let projectCombGraph;
 
-function getMonths() {
-  const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-  return months;
-}
-
-function generateRandomData(length) {
-    const data = [];
-    for (let i = 0; i < length; i++) {
-        data.push(Math.floor(Math.random() * 1000));
-    }
-    return data;
-}  
-
-function createProjectSaleExpensesGraph() {
-    const monthLabels = getMonths();
-    const randomSalesData = generateRandomData(monthLabels.length);
-    const randomExpensesData = generateRandomData(monthLabels.length);
+function createProjectSaleExpensesGraph(data) {
+  const monthLabels = data.map(data => data.date);
+  const randomSalesData = data.map(data => data.sales);
+  const randomExpensesData = data.map(data => data.totalExpenses);
     
     return new Chart(projectSalesExpenses, {
       type: 'line',
@@ -90,8 +77,7 @@ function createProjectSaleExpensesGraph() {
 
 async function populateProjectCompGraph(){
   const graphData = await getProjectCompData();
-  console.log(graphData);
-  return createProjectSaleExpensesGraph();
+  return createProjectSaleExpensesGraph(graphData);
 }
 
 async function getProjectCompData(){
