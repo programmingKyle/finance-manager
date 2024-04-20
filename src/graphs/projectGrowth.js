@@ -79,6 +79,6 @@ function createProjectGrowthGraph() {
   });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    projectGrowthGraph = createProjectGrowthGraph();
-});
+async function populateProjectGrowthGraph(){
+    return createProjectGrowthGraph();
+}

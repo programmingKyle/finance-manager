@@ -62,8 +62,8 @@ window.addEventListener('resize', () => {
     resizeTimer = setTimeout(async () => {
         interactionsGraph = await populateActiveInteractions();
         combGraph = await populateActiveCompGraph();
-        projectCombGraph = createProjectSaleExpensesGraph();
-        projectGrowthGraph = createProjectGrowthGraph();
+        projectCombGraph = await populateProjectCompGraph();
+        projectGrowthGraph = await populateProjectGrowthGraph();
     }, 500);
 });
 
@@ -76,5 +76,16 @@ async function populateHomeViewGraphs(){
     }
     interactionsGraph = await populateActiveInteractions();
     combGraph = await populateActiveCompGraph();
+}
+
+async function populateProjectViewGraphs(){
+    if (projectCombGraph){
+        projectCombGraph.destroy();
+    }
+    if (projectGrowthGraph){
+        projectGrowthGraph.destroy();
+    }
+    projectCombGraph = await populateProjectCompGraph();
+    projectGrowthGraph = await populateProjectGrowthGraph();
 }
 

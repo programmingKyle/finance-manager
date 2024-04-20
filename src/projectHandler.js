@@ -55,11 +55,12 @@ async function populateProjectList(){
         const projectButton_el = document.createElement('button');
         projectButton_el.textContent = element.name;
 
-        projectButton_el.addEventListener('click', () => {
+        projectButton_el.addEventListener('click', async () => {
             currentProjectID = element.id;
             projectData = element;
             changeView('project', element.name, element.currency);
             getLogContent();
+            await populateProjectViewGraphs();
         });
 
         projectListContainer_el.append(projectButton_el);
@@ -137,6 +138,7 @@ function deleteProjectListeners(){
             overlayContainer_el.style.display = 'none';
             changeView('home');
             populateProjectList();
+            await populateHomeViewGraphs();
         }
     });
 }

@@ -87,7 +87,7 @@ function createProjectSaleExpensesGraph() {
       },
     });
 }
-  
-document.addEventListener('DOMContentLoaded', () => {
-    projectCombGraph = createProjectSaleExpensesGraph();
-});
+
+async function populateProjectCompGraph(){
+  return createProjectSaleExpensesGraph();
+}
