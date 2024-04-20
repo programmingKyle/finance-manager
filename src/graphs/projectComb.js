@@ -2,6 +2,7 @@ const projectCompGraph_el = document.getElementById('projectCompGraph');
 const projectSalesExpenses = projectCompGraph_el.getContext('2d');
 
 let projectCombGraph;
+let projectGraphData;
 
 function createProjectSaleExpensesGraph(data) {
   const monthLabels = data.map(data => data.date);
@@ -76,8 +77,8 @@ function createProjectSaleExpensesGraph(data) {
 }
 
 async function populateProjectCompGraph(){
-  const graphData = await getProjectCompData();
-  return createProjectSaleExpensesGraph(graphData);
+  projectGraphData = await getProjectCompData();
+  return createProjectSaleExpensesGraph(projectGraphData);
 }
 
 async function getProjectCompData(){
