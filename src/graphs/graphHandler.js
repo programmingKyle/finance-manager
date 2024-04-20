@@ -66,3 +66,15 @@ window.addEventListener('resize', () => {
         projectGrowthGraph = createProjectGrowthGraph();
     }, 500);
 });
+
+async function populateHomeViewGraphs(){
+    if (interactionsGraph){
+        interactionsGraph.destroy();
+    }
+    if (combGraph){
+        combGraph.destroy();
+    }
+    interactionsGraph = await populateActiveInteractions();
+    combGraph = await populateActiveCompGraph();
+}
+

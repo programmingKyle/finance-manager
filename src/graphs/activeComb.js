@@ -3,21 +3,8 @@ const ctxSalesExpenses = activeCombGraph_el.getContext('2d');
 
 let combGraph;
 
-function getMonths() {
-  const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-  return months;
-}
-
-function generateRandomData(length) {
-    const data = [];
-    for (let i = 0; i < length; i++) {
-        data.push(Math.floor(Math.random() * 1000));
-    }
-    return data;
-}  
 
 function createSalesExpensesComparisonGraph(data) {
-  console.log(data);
   const monthLabels = data.map(data => data.date);
   const randomSalesData = data.map(data => data.sales);
   const randomExpensesData = data.map(data => data.totalExpenses);

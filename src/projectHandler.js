@@ -66,9 +66,10 @@ async function populateProjectList(){
     });
 }
 
-projectBackButton_el.addEventListener('click', () => {
+projectBackButton_el.addEventListener('click', async () => {
     changeView('home');
     populateProjectList();
+    await populateHomeViewGraphs();
 });
 
 projectEditButton_el.addEventListener('click', () => {
