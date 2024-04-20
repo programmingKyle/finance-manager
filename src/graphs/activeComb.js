@@ -16,119 +16,117 @@ function generateRandomData(length) {
     return data;
 }  
 
-function createSalesExpensesComparisonGraph() {
-    const monthLabels = getMonths();
-    const randomSalesData = generateRandomData(monthLabels.length);
-    const randomExpensesData = generateRandomData(monthLabels.length);
+function createSalesExpensesComparisonGraph(data) {
+  console.log(data);
+  const monthLabels = data.map(data => data.date);
+  const randomSalesData = data.map(data => data.sales);
+  const randomExpensesData = data.map(data => data.totalExpenses);
     
-    return new Chart(ctxSalesExpenses, {
-      type: 'line',
-      data: {
-        labels: monthLabels,
-        datasets: [{
-          label: 'Sales',
-          data: randomSalesData,
-          borderColor: '#17BF41',
-          backgroundColor: 'rgba(0, 128, 0, 0.2)',
-          borderWidth: 2,
-          fill: false,
-        },
-        {
-          label: 'Expenses',
-          data: randomExpensesData,
-          borderColor: '#A93131',
-          backgroundColor: 'rgba(255, 0, 0, 0.2)',
-          borderWidth: 2,
-          fill: false,
-        }]
+  return new Chart(ctxSalesExpenses, {
+    type: 'line',
+    data: {
+      labels: monthLabels,
+      datasets: [{
+        label: 'Sales',
+        data: randomSalesData,
+        borderColor: '#17BF41',
+        backgroundColor: 'rgba(0, 128, 0, 0.2)',
+        borderWidth: 2,
+        fill: false,
       },
-      options: {
-        maintainAspectRatio: false,
-        responsive: true,
-        plugins: {
-          legend: {
-            display:  false,
+      {
+        label: 'Expenses',
+        data: randomExpensesData,
+        borderColor: '#A93131',
+        backgroundColor: 'rgba(255, 0, 0, 0.2)',
+        borderWidth: 2,
+        fill: false,
+      }]
+    },
+    options: {
+      maintainAspectRatio: false,
+      responsive: true,
+      plugins: {
+        legend: {
+          display:  false,
+        },
+        title: {
+          display: false,
+        },
+      },
+      scales: {
+        y: {
+          grid: {
+            display: true,
+            color: 'rgba(0, 0, 0, 0.1)',
           },
-          title: {
+          ticks: {
+            beginAtZero: true,
+            color: '#7C90DB',
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Amount',
+            color: '#7C90DB',
+          }
+        },
+        x: {
+          grid: {
             display: false,
           },
-        },
-        scales: {
-          y: {
-            grid: {
-              display: true,
-              color: 'rgba(0, 0, 0, 0.1)',
-            },
-            ticks: {
-              beginAtZero: true,
-              color: '#7C90DB',
-            },
-            scaleLabel: {
-              display: true,
-              labelString: 'Amount',
-              color: '#7C90DB',
-            }
+          ticks: {
+            display: true,
+            color: '#7C90DB',
           },
-          x: {
-            grid: {
-              display: false,
-            },
-            ticks: {
-              display: true,
-              color: '#7C90DB',
-            },
-            scaleLabel: {
-              display: true,
-              labelString: 'Month',
-              color: '#333',
-            }
-          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Month',
+            color: '#333',
+          }
         },
       },
-    });
+    },
+  });
 }
 
 async function populateActiveCompGraph(){
   const graphData = await getCompGraphData();
-  return createSalesExpensesComparisonGraph();
+  return createSalesExpensesComparisonGraph(graphData);
 }
 
 // Used for home view which is a total across all projects
 async function getCompGraphData(){
   const projectIDs = graphProjects.map(project => project.id);
-  // This will be used to return the month as well as that months total sales
   const graphData = {};
 
-  for (const id of projectIDs){
-    const projectSales = await api.getGraphData({request: 'ProjectInteractions', projectID: id, type: 'sale'})
-    const projectExpenses = await api.getGraphData({request: 'ProjectInteractions', projectID: id, type: 'expense'})
+  for (const id of projectIDs) {
+    const projectSales = await api.getGraphData({ request: 'ProjectInteractions', projectID: id, type: 'sale' });
+    const projectExpenses = await api.getGraphData({ request: 'ProjectInteractions', projectID: id, type: 'expense' });
     const salesValues = await calculateMonthlyValues(projectSales);
     const expensesValues = await calculateMonthlyValues(projectExpenses);
-    
+  
     salesValues.forEach(sale => {
       const { date, monthTotal } = sale;
-      if (!graphData[date]){
-        graphData[date] = { sales: monthTotal, totalExpenses: 0};
+      if (!graphData[date]) {
+        graphData[date] = { sales: monthTotal, totalExpenses: 0 };
       } else {
         graphData[date].sales += monthTotal;
       }
     });
-
+  
     expensesValues.forEach(expense => {
       const { date, monthTotal } = expense;
-      if (!graphData[date]){
-        graphData[date] = { totalSales: 0, totalExpenses: monthTotal };
+      if (!graphData[date]) {
+        graphData[date] = { sales: 0, totalExpenses: monthTotal };
       } else {
-        if (!graphData[date].totalExpenses) {
-          graphData[date].totalExpenses = monthTotal;
-        } else {
-          graphData[date].totalExpenses += monthTotal;
-        }
+        graphData[date].totalExpenses += monthTotal;
       }
     });
   }
-
-  console.log(graphData);
+  
+  const graphDataArray = Object.entries(graphData).map(([date, { sales, totalExpenses }]) => ({ date, sales, totalExpenses }));
+  
+  return graphDataArray;
 }
 
 async function calculateMonthlyValues(values) {
