@@ -13,7 +13,7 @@ inputDecimal_el.addEventListener('input', () => {
     maxCharacterInput(inputDecimal_el, 2);
 });
 
-inputSubmit_el.addEventListener('click', () => {
+inputSubmit_el.addEventListener('click', async () => {
     if (descriptionInput_el.value === '' || inputDollar_el.value === '' || inputDecimal_el.value === ''){
         if (descriptionInput_el.value === ''){
             errorHandling(descriptionInput_el);
@@ -44,6 +44,7 @@ inputSubmit_el.addEventListener('click', () => {
         clearInputs(inputList);
         logDisplay(inputSubmit_el, logSuccessText_el, 'Log Successful');
         getLogContent();
+        await populateProjectViewGraphs();
     } else {
         logDisplay(inputSubmit_el, logSuccessText_el, 'Log Failed');
     }

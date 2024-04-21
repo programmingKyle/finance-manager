@@ -3,19 +3,6 @@ const projectGrowth = projectGrowthGraph_el.getContext('2d');
 
 let projectGrowthGraph;
 
-function getMonths() {
-  const months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
-  return months;
-}
-
-function generateRandomData(length) {
-    const data = [];
-    for (let i = 0; i < length; i++) {
-        data.push(Math.floor(Math.random() * 1000));
-    }
-    return data;
-}  
-
 function createProjectGrowthGraph(data) {
     const monthLabels = data.dateValues;
     const growthData = data.profitValues;
