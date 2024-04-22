@@ -268,9 +268,19 @@ ipcMain.handle('log-handler', async (req, data) => {
     case 'log':
       result = await inputLog(data.log);
       break;
+    case 'edit':
+      result = await editLog(data.id, data.newDescription, data.newValue);
   }
   return result;
 });
+
+async function editLog(id, newDescription, newValue){
+  const sqlStatement = `UPDATE logs SET projectID = ?, value = ? WHERE id = ?`;
+  const params = [newDescription, newValue, id];
+  const result = databaseHandler('run', sqlStatement, params);
+  return result;
+
+}
 
 async function inputLog(log){
   const sqlStatement = `INSERT INTO logs (projectID, description, value, type, date) VALUES (?, ?, ?, ?, datetime("now", "localtime"))`;

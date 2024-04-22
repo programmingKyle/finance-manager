@@ -97,4 +97,9 @@ function editLogListeners(){
     editLogBackButton_el.addEventListener('click', () => {
         loadOverlayContent('overlays.html', '#viewLogContainer', viewLogListeners);
     });
+
+    confirmEditLogButton_el.addEventListener('click', async () => {
+        const newValue = `${editDollarInput_el.value}.${editDecimalInput_el.value}`;
+        await api.logHandler({request: 'edit', id: selectedLog.id, newDescription: editTitleInput_el.value, newValue})
+    });
 }
