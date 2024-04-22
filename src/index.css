@@ -312,6 +312,7 @@ select.error {
   grid-template-columns: 1fr 1fr 1fr;
   grid-gap: 2px;
   padding: 2px 5px;
+  cursor: pointer;
 }
 
 .log-content .item:nth-child(even){
@@ -320,6 +321,14 @@ select.error {
 
 .log-content .item:nth-child(odd){
   background-color: #272727;
+}
+
+.log-content .item:hover {
+  background-color: #2c2c2c; /* Adjust the desired hover background color */
+}
+
+.log-content .item:hover h6 {
+  filter: brightness(1); /* Reset the brightness for the text */
 }
 
 .log-content .item h6 {

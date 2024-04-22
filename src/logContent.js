@@ -23,13 +23,21 @@ async function populateLogs(){
         itemValue_el.textContent = element.value;
 
         if (element.value > 0){
-            itemValue_el.style.color = 'green';
+            itemValue_el.style.color = '#3C9539';
         } else if (element.value < 0 ){
-            itemValue_el.style.color = 'red';
+            itemValue_el.style.color = '#DA3131';
         }
+
+        viewLogListener(itemDiv_el, element);
 
         itemDiv_el.append(itemTitle_el, itemDate_el, itemValue_el);
 
         logContent_el.append(itemDiv_el);
     });
+}
+
+function viewLogListener(log, data){
+    log.addEventListener('click', () => {
+        console.log(data);
+    })
 }
