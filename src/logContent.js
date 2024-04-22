@@ -85,7 +85,11 @@ function editLogListeners(){
     const confirmEditLogButton_el = document.getElementById('confirmEditLogButton');
 
     console.log(selectedLog);
-    
+
+    editTitleInput_el.value = selectedLog.description;
+    editDollarInput_el.value = selectedLog.value.split('.')[0];
+    editDecimalInput_el.value = selectedLog.value.split('.')[1];
+
     editLogCloseButton_el.addEventListener('click', () => {
         overlayContainer_el.style.display = 'none';
     });
