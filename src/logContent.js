@@ -89,4 +89,8 @@ function editLogListeners(){
     editLogCloseButton_el.addEventListener('click', () => {
         overlayContainer_el.style.display = 'none';
     });
+
+    editLogBackButton_el.addEventListener('click', () => {
+        loadOverlayContent('overlays.html', '#viewLogContainer', viewLogListeners);
+    });
 }
