@@ -3,9 +3,10 @@ const projectGrowth = projectGrowthGraph_el.getContext('2d');
 
 let projectGrowthGraph;
 
-function createProjectGrowthGraph(data) {
+function createProjectGrowthGraph(data, previousProfit) {
     const monthLabels = data.dateValues;
-    const growthData = data.profitValues;
+    let growthData = data.profitValues;
+    growthData = growthData.map(value => value += previousProfit);
     
     return new Chart(projectGrowth, {
         type: 'line',
@@ -70,15 +71,14 @@ async function populateProjectGrowthGraph(){
     // This will be used to get profits outside of teh currency time selection
     const previousProfit = await getProjectPreviousProfits();
     const graphData = await getProjectGrowthData();
-    return createProjectGrowthGraph(graphData);
+    return createProjectGrowthGraph(graphData, previousProfit);
 }
 
 async function getProjectPreviousProfits(){
     const previousSales = await api.getGraphData({request: 'PreviousProfits', projectID: currentProjectID, type: 'sale'});
     const previousExpenses = await api.getGraphData({request: 'PreviousProfits', projectID: currentProjectID, type: 'expense'});
-
-    console.log(previousSales);
-    console.log(previousExpenses);
+    const total = previousSales + previousExpenses;
+    return total;
 }
 
 async function getProjectGrowthData(){
