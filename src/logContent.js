@@ -28,7 +28,7 @@ async function populateLogs(){
             itemValue_el.style.color = '#DA3131';
         }
 
-        viewLogListener(itemDiv_el, element);
+        toggleViewOverlay(itemDiv_el, element);
 
         itemDiv_el.append(itemTitle_el, itemDate_el, itemValue_el);
 
@@ -36,8 +36,24 @@ async function populateLogs(){
     });
 }
 
-function viewLogListener(log, data){
-    log.addEventListener('click', () => {
-        console.log(data);
+function toggleViewOverlay(item, data){
+    item.addEventListener('click', () => {
+        overlayContainer_el.style.display = 'flex';
+        loadOverlayContent('overlays.html', '#viewLogContainer', () => viewLogListeners(data));
     })
+}
+
+async function viewLogListeners(data){
+    const viewLogCloseButton_el = document.getElementById('viewLogCloseButton');
+    const viewLogTitle_el = document.getElementById('viewLogTitle');
+    const viewLogDate_el = document.getElementById('viewLogDate');
+    const viewLogValue_el = document.getElementById('viewLogValue');
+    const editLogButton_el = document.getElementById('editLogButton');
+    const deleteLogButton_el = document.getElementById('deleteLogButton');
+
+    console.log(data);
+
+    viewLogCloseButton_el.addEventListener('click', () => {
+        overlayContainer_el.style.display = 'none';
+    });
 }
