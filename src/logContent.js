@@ -56,6 +56,12 @@ async function viewLogListeners(data){
     viewLogDate_el.textContent = data.date;
     viewLogValue_el.textContent = data.value;
 
+    if (data.value > 0){
+        viewLogValue_el.style.color = '#3C9539';
+    } else if (data.value < 0 ){
+        viewLogValue_el.style.color = '#DA3131';
+    }
+
     viewLogCloseButton_el.addEventListener('click', () => {
         overlayContainer_el.style.display = 'none';
     });
