@@ -65,3 +65,25 @@
     <button id="deleteLogButton" class="slim-button fas fa-trash"></button>
   </div>
 </div>
+
+<div id="editLogContainer" class="centered-container" style="text-align: center;">
+  <div style="display: grid; grid-template-columns: auto 1fr auto;">
+      <button id="editLogBackButton" class="slim-button fa-arrow-left fa-x"></button>
+      <h1>Edit Log</h1>
+      <button id="editLogCloseButton" class="slim-button fa-solid fa-x"></button>
+  </div>
+  <div class="overlay-log-info">
+    <h5>Title</h5>
+    <input type="text">
+    <h5>Date</h5>
+    <input type="text">
+    <h5>Value</h5>
+    <div style="display: grid; grid-template-columns: 1fr auto; grid-gap: 5px;">
+      <input type="text">
+      <input type="text">
+    </div>
+  </div>
+  <button id="confirmEditLogButton" class="input-button">Save</button>
+</div>
+
+

@@ -1,6 +1,7 @@
 const logContent_el = document.getElementById('logContent');
 
 let recentLog;
+let selectedLog;
 
 async function getLogContent(){
     recentLog = await api.logHandler({request: 'view', projectID: currentProjectID});
@@ -28,7 +29,7 @@ async function populateLogs(){
             itemValue_el.style.color = '#DA3131';
         }
 
-        toggleViewOverlay(itemDiv_el, element);
+        enableViewOverlay(itemDiv_el, element);
 
         itemDiv_el.append(itemTitle_el, itemDate_el, itemValue_el);
 
@@ -36,14 +37,15 @@ async function populateLogs(){
     });
 }
 
-function toggleViewOverlay(item, data){
+function enableViewOverlay(item, data){
     item.addEventListener('click', () => {
+        selectedLog = data;
         overlayContainer_el.style.display = 'flex';
-        loadOverlayContent('overlays.html', '#viewLogContainer', () => viewLogListeners(data));
+        loadOverlayContent('overlays.html', '#viewLogContainer', viewLogListeners);
     })
 }
 
-async function viewLogListeners(data){
+async function viewLogListeners(){
     const viewLogCloseButton_el = document.getElementById('viewLogCloseButton');
     const viewLogTitle_el = document.getElementById('viewLogTitle');
     const viewLogDate_el = document.getElementById('viewLogDate');
@@ -51,14 +53,13 @@ async function viewLogListeners(data){
     const editLogButton_el = document.getElementById('editLogButton');
     const deleteLogButton_el = document.getElementById('deleteLogButton');
 
-    console.log(data);
-    viewLogTitle_el.textContent = data.description;
-    viewLogDate_el.textContent = data.date;
-    viewLogValue_el.textContent = data.value;
+    viewLogTitle_el.textContent = selectedLog.description;
+    viewLogDate_el.textContent = selectedLog.date;
+    viewLogValue_el.textContent = selectedLog.value;
 
-    if (data.value > 0){
+    if (selectedLog.value > 0){
         viewLogValue_el.style.color = '#3C9539';
-    } else if (data.value < 0 ){
+    } else if (selectedLog.value < 0 ){
         viewLogValue_el.style.color = '#DA3131';
     }
 
