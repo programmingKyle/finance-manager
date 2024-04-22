@@ -275,7 +275,7 @@ ipcMain.handle('log-handler', async (req, data) => {
 });
 
 async function editLog(id, newDescription, newValue){
-  const sqlStatement = `UPDATE logs SET projectID = ?, value = ? WHERE id = ?`;
+  const sqlStatement = `UPDATE logs SET description = ?, value = ? WHERE id = ?`;
   const params = [newDescription, newValue, id];
   const result = databaseHandler('run', sqlStatement, params);
   return result;

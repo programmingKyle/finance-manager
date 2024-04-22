@@ -100,6 +100,10 @@ function editLogListeners(){
 
     confirmEditLogButton_el.addEventListener('click', async () => {
         const newValue = `${editDollarInput_el.value}.${editDecimalInput_el.value}`;
-        await api.logHandler({request: 'edit', id: selectedLog.id, newDescription: editTitleInput_el.value, newValue})
+        const result = await api.logHandler({request: 'edit', id: selectedLog.id, newDescription: editTitleInput_el.value, newValue})
+        if (result){
+            overlayContainer_el.style.display = 'none';
+            await getLogContent();
+        }
     });
 }
