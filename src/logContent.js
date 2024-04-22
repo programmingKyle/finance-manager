@@ -52,6 +52,9 @@ async function viewLogListeners(data){
     const deleteLogButton_el = document.getElementById('deleteLogButton');
 
     console.log(data);
+    viewLogTitle_el.textContent = data.description;
+    viewLogDate_el.textContent = data.date;
+    viewLogValue_el.textContent = data.value;
 
     viewLogCloseButton_el.addEventListener('click', () => {
         overlayContainer_el.style.display = 'none';
