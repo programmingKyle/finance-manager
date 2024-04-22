@@ -63,7 +63,30 @@ async function viewLogListeners(){
         viewLogValue_el.style.color = '#DA3131';
     }
 
+    enableEditLogOverlay(editLogButton_el);
+
     viewLogCloseButton_el.addEventListener('click', () => {
+        overlayContainer_el.style.display = 'none';
+    });
+}
+
+function enableEditLogOverlay(button){
+    button.addEventListener('click', () => {
+        loadOverlayContent('overlays.html', '#editLogContainer', editLogListeners);
+    });
+}
+
+function editLogListeners(){
+    const editLogBackButton_el = document.getElementById('editLogBackButton');
+    const editLogCloseButton_el = document.getElementById('editLogCloseButton');
+    const editTitleInput_el = document.getElementById('editTitleInput');
+    const editDollarInput_el = document.getElementById('editDollarInput');
+    const editDecimalInput_el = document.getElementById('editDecimalInput');
+    const confirmEditLogButton_el = document.getElementById('confirmEditLogButton');
+
+    console.log(selectedLog);
+    
+    editLogCloseButton_el.addEventListener('click', () => {
         overlayContainer_el.style.display = 'none';
     });
 }
