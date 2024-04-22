@@ -67,26 +67,18 @@ function createProjectGrowthGraph(data) {
 }
 
 async function populateProjectGrowthGraph(){
+    // This will be used to get profits outside of teh currency time selection
+    const previousProfit = await getProjectPreviousProfits();
     const graphData = await getProjectGrowthData();
     return createProjectGrowthGraph(graphData);
 }
 
-async function getProjectGrowthData(){
-    const growthData = {};
+async function getProjectPreviousProfits(){
+    const previousSales = await api.getGraphData({request: 'PreviousProfits', projectID: currentProjectID, type: 'sale'});
+    const previousExpenses = await api.getGraphData({request: 'PreviousProfits', projectID: currentProjectID, type: 'expense'});
 
-    let previous = 0;
-
-    projectGraphData.forEach(entry => {
-        const profit = entry.sales - entry.totalExpenses;
-        previous += profit;
-        if (!growthData[entry.date]) {
-            growthData[entry.date] = [previous];
-        } else {
-            growthData[entry.date].push(previous);
-        }
-    });
-
-    return growthData;
+    console.log(previousSales);
+    console.log(previousExpenses);
 }
 
 async function getProjectGrowthData(){

@@ -364,6 +364,9 @@ ipcMain.handle('get-graph-data', async (req, data) => {
     case 'ProjectInteractions':
       result = await getProjectInteraction(data.projectID, data.type);
       break;
+    case 'PreviousProfits':
+      result = await getProjectPreviousProfits(data.projectID, data.type);
+      break;
   }
   return result;
 });
@@ -414,4 +417,20 @@ async function getProjectInteraction(id, type) {
   const params = [id, type];
   const result = await databaseHandler('all', sqlStatement, params);
   return result;
+}
+
+async function getProjectPreviousProfits(id, type) {
+  const sqlStatement = `
+    SELECT 
+      SUM(value) AS total
+    FROM 
+      logs 
+    WHERE 
+      projectID = ? 
+      AND type = ? 
+      AND date < DATE('now', '-12 months')
+  `;
+  const params = [id, type];
+  const [ { total } ] = await databaseHandler('all', sqlStatement, params);
+  return total || 0;
 }
