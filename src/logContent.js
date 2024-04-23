@@ -84,6 +84,8 @@ function editLogListeners(){
     const editDecimalInput_el = document.getElementById('editDecimalInput');
     const confirmEditLogButton_el = document.getElementById('confirmEditLogButton');
 
+    const required = [editTitleInput_el, editDollarInput_el, editDecimalInput_el];
+
     console.log(selectedLog);
 
     editTitleInput_el.value = selectedLog.description;
@@ -99,11 +101,20 @@ function editLogListeners(){
     });
 
     confirmEditLogButton_el.addEventListener('click', async () => {
-        const newValue = `${editDollarInput_el.value}.${editDecimalInput_el.value}`;
-        const result = await api.logHandler({request: 'edit', id: selectedLog.id, newDescription: editTitleInput_el.value, newValue})
-        if (result){
-            overlayContainer_el.style.display = 'none';
-            await getLogContent();
+        let editError = false;
+        required.forEach(element => {
+            if (element.value === ''){
+                editError = true;
+                errorHandling(element);
+            }
+        });
+        if (!editError){
+            const newValue = `${editDollarInput_el.value}.${editDecimalInput_el.value}`;
+            const result = await api.logHandler({request: 'edit', id: selectedLog.id, newDescription: editTitleInput_el.value, newValue})
+            if (result){
+                overlayContainer_el.style.display = 'none';
+                await getLogContent();
+            }    
         }
     });
 }
