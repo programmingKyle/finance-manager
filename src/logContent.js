@@ -100,6 +100,9 @@ function editLogListeners(){
         loadOverlayContent('overlays.html', '#viewLogContainer', viewLogListeners);
     });
 
+    onlyNumbers(editDollarInput_el);
+    onlyNumbers(editDecimalInput_el);
+
     confirmEditLogButton_el.addEventListener('click', async () => {
         let editError = false;
         required.forEach(element => {

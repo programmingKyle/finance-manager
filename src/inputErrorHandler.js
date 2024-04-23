@@ -19,3 +19,10 @@ function maxCharacterInput(input, length){
         }
     });
 }
+
+function onlyNumbers(input){
+    input.addEventListener('input', (event) => {
+        const filteredValue = event.target.value.replace(/[^0-9]/g, '');
+        event.target.value = filteredValue;
+    })
+}
