@@ -102,6 +102,7 @@ function editLogListeners(){
 
     onlyNumbers(editDollarInput_el);
     onlyNumbers(editDecimalInput_el);
+    maxCharacterInput(editDecimalInput_el, 2);
 
     confirmEditLogButton_el.addEventListener('click', async () => {
         let editError = false;
