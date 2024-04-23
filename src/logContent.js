@@ -85,9 +85,7 @@ function editLogListeners(){
     const confirmEditLogButton_el = document.getElementById('confirmEditLogButton');
 
     const required = [editTitleInput_el, editDollarInput_el, editDecimalInput_el];
-
-    console.log(selectedLog);
-
+    
     editTitleInput_el.value = selectedLog.description;
     editDollarInput_el.value = selectedLog.value.split('.')[0];
     editDecimalInput_el.value = selectedLog.value.split('.')[1];

@@ -16,39 +16,36 @@ inputDecimal_el.addEventListener('input', () => {
 });
 
 inputSubmit_el.addEventListener('click', async () => {
-    if (descriptionInput_el.value === '' || inputDollar_el.value === '' || inputDecimal_el.value === ''){
-        if (descriptionInput_el.value === ''){
-            errorHandling(descriptionInput_el);
+    let inputEmpty = false;
+    inputList.forEach(element => {
+        if (element.value === ''){
+            inputEmpty = true;
+            errorHandling(element);
         }
-        if (inputDollar_el.value === ''){
-            errorHandling(inputDollar_el);
+    });
+    if (!inputEmpty){
+        const formatValue = () => {
+            const isNegative = typeInput_el.value === 'expense' ? '-' : '';
+            const decimalValue = inputDecimal_el.value;
+            const formatDecimal = decimalValue.length < 2 ? `${decimalValue}0` : decimalValue;
+            const value = `${isNegative}${inputDollar_el.value}.${formatDecimal}`;
+            return value;
         }
-        if (inputDecimal_el.value === ''){
-            errorHandling(inputDecimal_el);
-        }
-        return;
-    }
-    const formatValue = () => {
-        const isNegative = typeInput_el.value === 'expense' ? '-' : '';
-        const decimalValue = inputDecimal_el.value;
-        const formatDecimal = decimalValue.length < 2 ? `${decimalValue}0` : decimalValue;
-        const value = `${isNegative}${inputDollar_el.value}.${formatDecimal}`;
-        return value;
-    }
-    const log = {
-        projectID: currentProjectID,
-        description: descriptionInput_el.value,
-        type: typeInput_el.value,
-        value: formatValue(),
-    };
-    const isSuccessful = api.logHandler({request: 'log', log});
-    if (isSuccessful){
-        clearInputs(inputList);
-        logDisplay(inputSubmit_el, logSuccessText_el, 'Log Successful');
-        getLogContent();
-        await populateProjectViewGraphs();
-    } else {
-        logDisplay(inputSubmit_el, logSuccessText_el, 'Log Failed');
+        const log = {
+            projectID: currentProjectID,
+            description: descriptionInput_el.value,
+            type: typeInput_el.value,
+            value: formatValue(),
+        };
+        const isSuccessful = api.logHandler({request: 'log', log});
+        if (isSuccessful){
+            clearInputs(inputList);
+            logDisplay(inputSubmit_el, logSuccessText_el, 'Log Successful');
+            getLogContent();
+            await populateProjectViewGraphs();
+        } else {
+            logDisplay(inputSubmit_el, logSuccessText_el, 'Log Failed');
+        }    
     }
 });
 
