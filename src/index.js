@@ -270,7 +270,6 @@ ipcMain.handle('log-handler', async (req, data) => {
       break;
     case 'edit':
       result = await editLog(data.id, data.newDescription, data.newValue, data.newType);
-      console.log(result);
       break;
   }
   return result;

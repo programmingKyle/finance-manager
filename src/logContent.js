@@ -86,9 +86,10 @@ function editLogListeners(){
     const editType_el = document.getElementById('editType');
 
     const required = [editTitleInput_el, editDollarInput_el, editDecimalInput_el];
-    
+
+    editType_el.value = selectedLog.type;
     editTitleInput_el.value = selectedLog.description;
-    editDollarInput_el.value = selectedLog.value.split('.')[0];
+    editDollarInput_el.value = selectedLog.value.split('.')[0].replace('-', '');
     editDecimalInput_el.value = selectedLog.value.split('.')[1];
 
     editLogCloseButton_el.addEventListener('click', () => {
