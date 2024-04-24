@@ -83,6 +83,7 @@ function editLogListeners(){
     const editDollarInput_el = document.getElementById('editDollarInput');
     const editDecimalInput_el = document.getElementById('editDecimalInput');
     const confirmEditLogButton_el = document.getElementById('confirmEditLogButton');
+    const editType_el = document.getElementById('editType');
 
     const required = [editTitleInput_el, editDollarInput_el, editDecimalInput_el];
     
@@ -111,9 +112,16 @@ function editLogListeners(){
             }
         });
         if (!editError){
-            const newValue = `${editDollarInput_el.value}.${editDecimalInput_el.value}`;
-            const result = await api.logHandler({request: 'edit', id: selectedLog.id, newDescription: editTitleInput_el.value, newValue})
+            const formatValue = () => {
+                const isNegative = editType_el.value === 'expense' ? '-' : '';
+                const decimalValue = editDecimalInput_el.value;
+                const formatDecimal = decimalValue.length < 2 ? `${decimalValue}0` : decimalValue;
+                const value = `${isNegative}${editDollarInput_el.value}.${formatDecimal}`;
+                return value;
+            }
+            const result = await api.logHandler({request: 'edit', id: selectedLog.id, newDescription: editTitleInput_el.value, newValue: formatValue(), newType: editType_el.value})
             if (result){
+                console.log(result);
                 overlayContainer_el.style.display = 'none';
                 await getLogContent();
             }    
