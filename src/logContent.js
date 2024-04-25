@@ -68,6 +68,10 @@ async function viewLogListeners(){
     viewLogCloseButton_el.addEventListener('click', () => {
         overlayContainer_el.style.display = 'none';
     });
+
+    deleteLogButton_el.addEventListener('click', () => {
+        loadOverlayContent('overlays.html', '#deleteLogContainer', deleteLogListeners);
+    });
 }
 
 function enableEditLogOverlay(button){
@@ -128,4 +132,10 @@ function editLogListeners(){
             }    
         }
     });
+}
+
+function deleteLogListeners(){
+    const deleteLogContainer_el = document.getElementById('deleteLogContainer');
+    const yesDeleteLogButton_el = document.getElementById('yesDeleteLogButton');
+    const noDeleteLogButton_el = document.getElementById('noDeleteLogButton');
 }
