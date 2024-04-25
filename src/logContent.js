@@ -138,4 +138,8 @@ function deleteLogListeners(){
     const deleteLogContainer_el = document.getElementById('deleteLogContainer');
     const yesDeleteLogButton_el = document.getElementById('yesDeleteLogButton');
     const noDeleteLogButton_el = document.getElementById('noDeleteLogButton');
+
+    noDeleteLogButton_el.addEventListener('click', () => {
+        loadOverlayContent('overlays.html', '#viewLogContainer', viewLogListeners);
+    });
 }
