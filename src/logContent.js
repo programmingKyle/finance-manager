@@ -142,4 +142,9 @@ function deleteLogListeners(){
     noDeleteLogButton_el.addEventListener('click', () => {
         loadOverlayContent('overlays.html', '#viewLogContainer', viewLogListeners);
     });
+
+    yesDeleteLogButton_el.addEventListener('click', async () => {
+        const result = await api.logHandler({request: 'delete', id: selectedLog.id});
+        console.log(result);
+    });
 }

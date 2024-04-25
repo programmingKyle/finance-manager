@@ -271,9 +271,20 @@ ipcMain.handle('log-handler', async (req, data) => {
     case 'edit':
       result = await editLog(data.id, data.newDescription, data.newValue, data.newType);
       break;
+    case 'delete':
+      result = await deleteLog(data.id);
+      break;
   }
   return result;
 });
+
+async function deleteLog(id){
+  const sqlStatement = `DELETE FROM logs WHERE id = ?`;
+  const params = [id];
+  const result = databaseHandler('run', sqlStatement, params);
+  return result;
+}
+
 
 async function editLog(id, newDescription, newValue, newType){
   const sqlStatement = `UPDATE logs SET description = ?, value = ?, type = ? WHERE id = ?`;
