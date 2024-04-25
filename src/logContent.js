@@ -126,7 +126,6 @@ function editLogListeners(){
             }
             const result = await api.logHandler({request: 'edit', id: selectedLog.id, newDescription: editTitleInput_el.value, newValue: formatValue(), newType: editType_el.value})
             if (result){
-                console.log(result);
                 overlayContainer_el.style.display = 'none';
                 await getLogContent();
             }    
@@ -135,7 +134,6 @@ function editLogListeners(){
 }
 
 function deleteLogListeners(){
-    const deleteLogContainer_el = document.getElementById('deleteLogContainer');
     const yesDeleteLogButton_el = document.getElementById('yesDeleteLogButton');
     const noDeleteLogButton_el = document.getElementById('noDeleteLogButton');
 
