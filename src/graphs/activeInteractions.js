@@ -76,7 +76,9 @@ async function getActiveInteractions(){
   // This will get the projects that have homeGraph enabled
   graphProjects = await api.getGraphData({request: 'GetProjects', currency: selectedCurrency.currency});
   const projectIDs = graphProjects.map(project => project.id);
-  pastMonths = await getPastMonths();
+  pastMonths = await getPastDates(graphSelect2_el.value);
+  console.log(pastMonths);
+  //pastMonths = await getAnnual();
   const interactionCounts = {};
 
   for (const id of projectIDs){
@@ -98,7 +100,17 @@ async function getActiveInteractions(){
   return result;
 }
 
-async function getPastMonths() {
+async function getPastDates(select){
+  labels = [];
+  switch (select){
+    case 'Annual':
+      labels = await getAnnual();
+      break;
+  }
+  return labels;
+}
+
+async function getAnnual() {
   const pastMonths = [];
   const currentDate = new Date();
 

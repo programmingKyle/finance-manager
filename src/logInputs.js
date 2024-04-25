@@ -5,7 +5,6 @@ const inputDecimal_el = document.getElementById('inputDecimal');
 const inputSubmit_el = document.getElementById('inputSubmit');
 const logSuccessText_el = document.getElementById('logSuccessText');
 
-// Going to need currencyText_el
 onlyNumbers(inputDollar_el);
 onlyNumbers(inputDecimal_el);
 

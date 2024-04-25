@@ -7,7 +7,7 @@ const graphSelects = [graphSelect1_el, graphSelect2_el, graphSelect3_el, graphSe
 
 // Used for populating select options
 function populateGraphSelect(select){
-    const optionLabels = ['Annual', 'Bi-Annual', 'Quarterly', 'Monthly', 'Weekly'];
+    const optionLabels = ['Annual', 'Month', 'Week'];
 
     optionLabels.forEach(element => {
         const option = document.createElement('option');
