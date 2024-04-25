@@ -1,7 +1,7 @@
 {
   "name": "finance-manager",
   "productName": "Finance Manager",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Manager your finances.",
   "main": "src/index.js",
   "scripts": {
