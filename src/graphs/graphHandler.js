@@ -24,8 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Home View Comparison Graph
-graphSelect1_el.addEventListener('change', () => {
-    console.log(graphSelect1_el.value);
+graphSelect1_el.addEventListener('change', async () => {
+    if (combGraph){
+        combGraph.destroy();
+    }
+    combGraph = await populateActiveCompGraph();
 });
 
 // Home View Number of Transactions Graph
