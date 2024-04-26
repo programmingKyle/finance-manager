@@ -105,18 +105,19 @@ async function getPastDates(select){
       labels = await getAnnual();
       break;
     case 'Month':
-      labels = await getMonth();
+      labels = await getPastDays(30);
       break;
     case 'Week':
+      labels = await getPastDays(7);
       break;
   }
   return labels;
 }
 
-async function getMonth(){
+async function getPastDays(number){
   const pastDays = [];
   const currentDate = new Date();
-  for (let i = 0; i < 30; i++){
+  for (let i = 0; i < number; i++){
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
     const day = currentDate.getDate();

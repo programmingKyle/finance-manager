@@ -400,7 +400,6 @@ async function getSelectedProjects(currency){
 }
 
 async function getProjectInteractionCount(id, select, number) {
-  console.log(select);
   const sqlStatement = `
     SELECT 
       strftime('%Y-%m${select === 'Annual' ? '' : '-%d'}', date) AS month,
@@ -415,7 +414,6 @@ async function getProjectInteractionCount(id, select, number) {
     ORDER BY 
       month;
   `;
-  console.log(sqlStatement);
   const params = [id];
   const result = await databaseHandler('all', sqlStatement, params);
   return result;
