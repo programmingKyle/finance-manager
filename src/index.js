@@ -383,7 +383,7 @@ ipcMain.handle('get-graph-data', async (req, data) => {
       result = await getProjectInteractionCount(data.projectID, data.select, data.number);
       break;
     case 'ProjectInteractions':
-      result = await getProjectInteraction(data.projectID, data.type);
+      result = await getProjectInteraction(data.projectID, data.type, data.select, data.number);
       break;
     case 'PreviousProfits':
       result = await getProjectPreviousProfits(data.projectID, data.type);
@@ -419,19 +419,19 @@ async function getProjectInteractionCount(id, select, number) {
   return result;
 }
 
-async function getProjectInteraction(id, type) {
+async function getProjectInteraction(id, type, select, number) {
   const sqlStatement = `
     SELECT 
-      strftime('%Y-%m', date) AS month,
+      strftime('%Y-%m${select === 'Annual' ? '' : '-%d'}', date) AS month,
       SUM(value) AS total
     FROM 
       logs 
     WHERE 
       projectID = ? 
       AND type = ? 
-      AND date >= DATE('now', '-12 months')
+      AND date >= DATE('now', '${select === 'Annual' ? `-12 months` : `-${number} days`}')
     GROUP BY 
-      strftime('%Y-%m', date)
+      strftime('%Y-%m${select === 'Annual' ? '' : '-%d'}', date)
     ORDER BY 
       month;
   `;

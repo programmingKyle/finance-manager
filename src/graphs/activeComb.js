@@ -85,11 +85,12 @@ async function populateActiveCompGraph(){
 async function getCompGraphData(){
   const projectIDs = graphProjects.map(project => project.id);
   pastCombDates = await getPastDates(graphSelect1_el.value);
+  const number = await numberSelect(graphSelect1_el);
   const graphData = {};
 
   for (const id of projectIDs) {
-    const projectSales = await api.getGraphData({ request: 'ProjectInteractions', projectID: id, type: 'sale' });
-    const projectExpenses = await api.getGraphData({ request: 'ProjectInteractions', projectID: id, type: 'expense' });
+    const projectSales = await api.getGraphData({ request: 'ProjectInteractions', projectID: id, type: 'sale', select: graphSelect1_el.value, number });
+    const projectExpenses = await api.getGraphData({ request: 'ProjectInteractions', projectID: id, type: 'expense', select: graphSelect1_el.value, number });
     const salesValues = await calculateMonthlyValues(projectSales);
     const expensesValues = await calculateMonthlyValues(projectExpenses);
   
