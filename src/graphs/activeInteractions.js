@@ -4,7 +4,6 @@ const ctxInteractions = activeInteractionsGraph_el.getContext('2d');
 let interactionsGraph;
 
 let graphProjects;
-let pastMonths;
 
 function createActiveInteractionsGraph(data) {
   const interactionCount = data.map(data => data.interactionCount);
@@ -76,13 +75,12 @@ async function getActiveInteractions(){
   // This will get the projects that have homeGraph enabled
   graphProjects = await api.getGraphData({request: 'GetProjects', currency: selectedCurrency.currency});
   const projectIDs = graphProjects.map(project => project.id);
-  pastMonths = await getPastDates(graphSelect2_el.value);
-  console.log(pastMonths);
-  //pastMonths = await getAnnual();
+  const pastDates = await getPastDates(graphSelect2_el.value);
+  const number = await numberSelect(graphSelect2_el);
   const interactionCounts = {};
 
   for (const id of projectIDs){
-    const interactions = await api.getGraphData({request: 'ProjectsCount', projectID: id});
+    const interactions = await api.getGraphData({request: 'ProjectsCount', projectID: id, select: graphSelect2_el.value, number: number});
     interactions.forEach(interaction => {
       const {month, interactionCount} = interaction;
       // Checks if the interactionsCount object already has a property to the current month
@@ -93,7 +91,7 @@ async function getActiveInteractions(){
       interactionCounts[month] += interactionCount;
     });
   }
-  const result = pastMonths.map(month => ({
+  const result = pastDates.map(month => ({
     date: month,
     interactionCount: interactionCounts[month] || 0
   }));
@@ -106,8 +104,27 @@ async function getPastDates(select){
     case 'Annual':
       labels = await getAnnual();
       break;
+    case 'Month':
+      labels = await getMonth();
+      break;
+    case 'Week':
+      break;
   }
   return labels;
+}
+
+async function getMonth(){
+  const pastDays = [];
+  const currentDate = new Date();
+  for (let i = 0; i < 30; i++){
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth() + 1;
+    const day = currentDate.getDate();
+    const formattedMonth = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
+    pastDays.push(formattedMonth);
+    currentDate.setDate(currentDate.getDate() - 1);
+  }
+  return pastDays;
 }
 
 async function getAnnual() {

@@ -2,7 +2,7 @@ const activeCombGraph_el = document.getElementById('activeCombGraph');
 const ctxSalesExpenses = activeCombGraph_el.getContext('2d');
 
 let combGraph;
-
+let pastCombDates;
 
 function createSalesExpensesComparisonGraph(data) {
   const monthLabels = data.map(data => data.date);
@@ -84,6 +84,7 @@ async function populateActiveCompGraph(){
 // Used for home view which is a total across all projects
 async function getCompGraphData(){
   const projectIDs = graphProjects.map(project => project.id);
+  pastCombDates = await getPastDates(graphSelect1_el.value);
   const graphData = {};
 
   for (const id of projectIDs) {
@@ -130,7 +131,7 @@ async function calculateMonthlyValues(values) {
     }
   });
 
-  const result = pastMonths.map(month => ({
+  const result = pastCombDates.map(month => ({
     date: month,
     monthTotal: totals[month] || 0
   }));

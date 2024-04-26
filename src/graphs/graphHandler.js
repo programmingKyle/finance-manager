@@ -29,8 +29,11 @@ graphSelect1_el.addEventListener('change', () => {
 });
 
 // Home View Number of Transactions Graph
-graphSelect2_el.addEventListener('change', () => {
-    console.log(graphSelect2_el.value);
+graphSelect2_el.addEventListener('change', async () => {
+    if (interactionsGraph){
+        interactionsGraph.destroy();
+    }
+    interactionsGraph = await populateActiveInteractions();
 });
 
 // Prject View Comparison Graph
@@ -91,5 +94,16 @@ async function populateProjectViewGraphs(){
     }
     projectCombGraph = await populateProjectCompGraph();
     projectGrowthGraph = await populateProjectGrowthGraph();
+}
+
+// Used for when using the time drop down. This will select the number of date entries needed
+async function numberSelect(input){
+    if (input.value === 'Annual'){
+        return 12;
+    } else if (input.value === 'Month'){
+        return 30;
+    } else if (input.value === 'Week'){
+        return 7;
+    }
 }
 

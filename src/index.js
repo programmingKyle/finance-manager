@@ -380,7 +380,7 @@ ipcMain.handle('get-graph-data', async (req, data) => {
       result = await getSelectedProjects(data.currency);
       break;
     case 'ProjectsCount':
-      result = await getProjectInteractionCount(data.projectID);
+      result = await getProjectInteractionCount(data.projectID, data.select, data.number);
       break;
     case 'ProjectInteractions':
       result = await getProjectInteraction(data.projectID, data.type);
@@ -399,21 +399,23 @@ async function getSelectedProjects(currency){
   return result;
 }
 
-async function getProjectInteractionCount(id) {
+async function getProjectInteractionCount(id, select, number) {
+  console.log(select);
   const sqlStatement = `
     SELECT 
-      strftime('%Y-%m', date) AS month,
+      strftime('%Y-%m${select === 'Annual' ? '' : '-%d'}', date) AS month,
       COUNT(*) AS interactionCount
     FROM 
       logs 
     WHERE 
       projectID = ?
-      AND date >= DATE('now', '-12 months')
+      AND date >= DATE('now', '${select === 'Annual' ? `-12 months` : `-${number} days`}')
     GROUP BY 
-      strftime('%Y-%m', date)
+      strftime('%Y-%m${select === 'Annual' ? '' : '-%d'}', date)
     ORDER BY 
       month;
   `;
+  console.log(sqlStatement);
   const params = [id];
   const result = await databaseHandler('all', sqlStatement, params);
   return result;
