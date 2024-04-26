@@ -40,13 +40,16 @@ graphSelect2_el.addEventListener('change', async () => {
 });
 
 // Prject View Comparison Graph
-graphSelect1_el.addEventListener('change', () => {
-    console.log(graphSelect1_el.value);
+graphSelect3_el.addEventListener('change', async () => {
+    if (projectCombGraph){
+        projectCombGraph.destroy();
+    }
+    projectCombGraph = await populateProjectCompGraph();
 });
 
 // Project View Profit Growth Graph
-graphSelect1_el.addEventListener('change', () => {
-    console.log(graphSelect1_el.value);
+graphSelect4_el.addEventListener('change', async () => {
+    console.log(graphSelect4_el.value);
 });
 
 let resizeTimer;
