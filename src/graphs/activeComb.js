@@ -2,7 +2,6 @@ const activeCombGraph_el = document.getElementById('activeCombGraph');
 const ctxSalesExpenses = activeCombGraph_el.getContext('2d');
 
 let combGraph;
-let pastCombDates;
 
 function createSalesExpensesComparisonGraph(data) {
   const monthLabels = data.map(data => data.date);
@@ -84,15 +83,15 @@ async function populateActiveCompGraph(){
 // Used for home view which is a total across all projects
 async function getCompGraphData(){
   const projectIDs = graphProjects.map(project => project.id);
-  pastCombDates = await getPastDates(graphSelect1_el.value);
+  const pastCombDates = await getPastDates(graphSelect1_el.value);
   const number = await numberSelect(graphSelect1_el);
   const graphData = {};
 
   for (const id of projectIDs) {
     const projectSales = await api.getGraphData({ request: 'ProjectInteractions', projectID: id, type: 'sale', select: graphSelect1_el.value, number });
     const projectExpenses = await api.getGraphData({ request: 'ProjectInteractions', projectID: id, type: 'expense', select: graphSelect1_el.value, number });
-    const salesValues = await calculateMonthlyValues(projectSales);
-    const expensesValues = await calculateMonthlyValues(projectExpenses);
+    const salesValues = await calculateMonthlyValues(projectSales, pastCombDates);
+    const expensesValues = await calculateMonthlyValues(projectExpenses, pastCombDates);
   
     salesValues.forEach(sale => {
       const { date, monthTotal } = sale;
@@ -118,7 +117,7 @@ async function getCompGraphData(){
   return graphDataArray;
 }
 
-async function calculateMonthlyValues(values) {
+async function calculateMonthlyValues(values, pastDates) {
   const totals = {};
   values.forEach(element => {
     const { month, total } = element;
@@ -132,7 +131,7 @@ async function calculateMonthlyValues(values) {
     }
   });
 
-  const result = pastCombDates.map(month => ({
+  const result = pastDates.map(month => ({
     date: month,
     monthTotal: totals[month] || 0
   }));

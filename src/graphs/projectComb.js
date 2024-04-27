@@ -2,7 +2,6 @@ const projectCompGraph_el = document.getElementById('projectCompGraph');
 const projectSalesExpenses = projectCompGraph_el.getContext('2d');
 
 let projectCombGraph;
-let projectGraphData;
 
 function createProjectSaleExpensesGraph(data) {
   const monthLabels = data.map(data => data.date);
@@ -77,17 +76,19 @@ function createProjectSaleExpensesGraph(data) {
 }
 
 async function populateProjectCompGraph(){
-  projectGraphData = await getProjectCompData();
+  const projectGraphData = await getProjectCompData();
   return createProjectSaleExpensesGraph(projectGraphData);
 }
 
 async function getProjectCompData(){
+  const pastDates = await getPastDates(graphSelect3_el.value);
+  const number = await numberSelect(graphSelect3_el);
   const graphData = {};
 
-  const projectSales = await api.getGraphData({ request: 'ProjectInteractions', projectID: currentProjectID, type: 'sale' });
-  const projectExpenses = await api.getGraphData({ request: 'ProjectInteractions', projectID: currentProjectID, type: 'expense' });
-  const salesValues = await calculateMonthlyValues(projectSales);
-  const expensesValues = await calculateMonthlyValues(projectExpenses);
+  const projectSales = await api.getGraphData({ request: 'ProjectInteractions', projectID: currentProjectID, type: 'sale', select: graphSelect3_el.value, number: number });
+  const projectExpenses = await api.getGraphData({ request: 'ProjectInteractions', projectID: currentProjectID, type: 'expense', select: graphSelect3_el.value, number: number });
+  const salesValues = await calculateMonthlyValues(projectSales, pastDates);
+  const expensesValues = await calculateMonthlyValues(projectExpenses, pastDates);
 
   salesValues.forEach(sale => {
     const { date, monthTotal } = sale;
@@ -106,7 +107,6 @@ async function getProjectCompData(){
       graphData[date].totalExpenses += monthTotal;
     }
   });
-
   const graphDataArray = Object.entries(graphData).map(([date, { sales, totalExpenses }]) => ({ date, sales, totalExpenses }));
   
   return graphDataArray;
