@@ -49,7 +49,10 @@ graphSelect3_el.addEventListener('change', async () => {
 
 // Project View Profit Growth Graph
 graphSelect4_el.addEventListener('change', async () => {
-    console.log(graphSelect4_el.value);
+    if (projectGrowthGraph){
+        projectGrowthGraph.destroy();
+    }
+    projectGrowthGraph = await populateProjectGrowthGraph();
 });
 
 let resizeTimer;
