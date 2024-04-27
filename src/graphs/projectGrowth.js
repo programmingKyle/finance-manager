@@ -68,7 +68,6 @@ function createProjectGrowthGraph(data, previousProfit) {
 }
 
 async function populateProjectGrowthGraph(){
-    // This will be used to get profits outside of teh currency time selection
     const previousProfit = await getProjectPreviousProfits();
     const graphData = await getProjectGrowthData();
     return createProjectGrowthGraph(graphData, previousProfit);
@@ -82,17 +81,45 @@ async function getProjectPreviousProfits(){
 }
 
 async function getProjectGrowthData(){
+    const pastDates = await getPastDates(graphSelect4_el.value);
+    const number = await numberSelect(graphSelect4_el);
+    const graphData = {};
+
+    const projectSales = await api.getGraphData({ request: 'ProjectInteractions', projectID: currentProjectID, type: 'sale', select: graphSelect4_el.value, number: number });
+    const projectExpenses = await api.getGraphData({ request: 'ProjectInteractions', projectID: currentProjectID, type: 'expense', select: graphSelect4_el.value, number: number });
+    const salesValues = await calculateMonthlyValues(projectSales, pastDates);
+    const expensesValues = await calculateMonthlyValues(projectExpenses, pastDates);
+  
+    salesValues.forEach(sale => {
+        const { date, monthTotal } = sale;
+        if (!graphData[date]) {
+          graphData[date] = { sales: monthTotal, totalExpenses: 0 };
+        } else {
+          graphData[date].sales += monthTotal;
+        }
+    });
+    
+    expensesValues.forEach(expense => {
+        const { date, monthTotal } = expense;
+        if (!graphData[date]) {
+            graphData[date] = { sales: 0, totalExpenses: monthTotal };
+        } else {
+            graphData[date].totalExpenses += monthTotal;
+        }
+    });
+    
     const dateValues = [];
     const profitValues = [];
     
     let previous = 0;
 
-    projectGraphData.forEach(entry => {
+    for (const date in graphData) {
+        const entry = graphData[date];
         const profit = entry.sales - entry.totalExpenses;
         previous += profit;
-        dateValues.push(entry.date);
+        dateValues.push(date);
         profitValues.push(previous);
-    });
+    }
 
     return {dateValues, profitValues}
 }
