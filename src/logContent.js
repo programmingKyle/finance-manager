@@ -128,6 +128,7 @@ function editLogListeners(){
             if (result){
                 overlayContainer_el.style.display = 'none';
                 await getLogContent();
+                await populateProjectViewGraphs();
             }    
         }
     });
