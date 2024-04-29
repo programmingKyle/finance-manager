@@ -145,7 +145,8 @@ function deleteLogListeners(){
         const result = await api.logHandler({request: 'delete', id: selectedLog.id});
         if (result){
             overlayContainer_el.style.display = 'none';
-            await getLogContent();    
+            await getLogContent();
+            await populateProjectViewGraphs();
         }
     });
 }
