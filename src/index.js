@@ -449,7 +449,7 @@ async function getProjectPreviousProfits(id, type) {
     WHERE 
       projectID = ? 
       AND type = ? 
-      AND date < DATE('now', '-12 months')
+      AND date < DATE('now', '-11 months')
   `;
   const params = [id, type];
   const [ { total } ] = await databaseHandler('all', sqlStatement, params);

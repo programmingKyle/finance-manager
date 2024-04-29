@@ -69,6 +69,7 @@ function createProjectGrowthGraph(data, previousProfit) {
 
 async function populateProjectGrowthGraph(){
     const previousProfit = await getProjectPreviousProfits();
+    console.log(previousProfit);
     const graphData = await getProjectGrowthData();
     return createProjectGrowthGraph(graphData, previousProfit);
 }
@@ -82,6 +83,7 @@ async function getProjectPreviousProfits(){
 
 async function getProjectGrowthData(){
     const pastDates = await getPastDates(graphSelect4_el.value);
+    console.log(pastDates);
     const number = await numberSelect(graphSelect4_el);
     const graphData = {};
 

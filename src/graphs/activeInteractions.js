@@ -122,7 +122,7 @@ async function getPastDays(number){
     const month = currentDate.getMonth() + 1;
     const day = currentDate.getDate();
     const formattedMonth = `${year}-${month.toString().padStart(2, '0')}-${day.toString().padStart(2, '0')}`;
-    pastDays.push(formattedMonth);
+    pastDays.unshift(formattedMonth);
     currentDate.setDate(currentDate.getDate() - 1);
   }
   return pastDays;
@@ -136,7 +136,7 @@ async function getAnnual() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth() + 1;
     const formattedMonth = `${year}-${month.toString().padStart(2, '0')}`;
-    pastMonths.push(formattedMonth);
+    pastMonths.unshift(formattedMonth);
     currentDate.setMonth(currentDate.getMonth() - 1);
   }
 
