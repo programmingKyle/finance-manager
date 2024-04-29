@@ -386,7 +386,7 @@ ipcMain.handle('get-graph-data', async (req, data) => {
       result = await getProjectInteraction(data.projectID, data.type, data.select, data.number);
       break;
     case 'PreviousProfits':
-      result = await getProjectPreviousProfits(data.projectID, data.type);
+      result = await getProjectPreviousProfits(data.projectID, data.type, data.select, data.number);
       break;
   }
   return result;
@@ -440,7 +440,8 @@ async function getProjectInteraction(id, type, select, number) {
   return result;
 }
 
-async function getProjectPreviousProfits(id, type) {
+async function getProjectPreviousProfits(id, type, select, number) {
+  const valueSelect = `-${number} ${select === 'Annual' ? 'months' : 'days'}`;
   const sqlStatement = `
     SELECT 
       SUM(value) AS total
@@ -449,9 +450,9 @@ async function getProjectPreviousProfits(id, type) {
     WHERE 
       projectID = ? 
       AND type = ? 
-      AND date < DATE('now', '-11 months')
+      AND date < DATE('now', ?)
   `;
-  const params = [id, type];
+  const params = [id, type, valueSelect];
   const [ { total } ] = await databaseHandler('all', sqlStatement, params);
   return total || 0;
 }
