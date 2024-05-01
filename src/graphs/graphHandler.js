@@ -34,8 +34,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     await graphOptionSelect();
 });
 
+async function updateGraphSettings(graphSelect, timeOption){
+    const graphSettingsResult = await api.graphSettingsHandler({request: 'Update', graphSelect, timeOption});
+    return graphSettingsResult;
+}
+
 // Home View Comparison Graph
 graphSelect1_el.addEventListener('change', async () => {
+    const result = await updateGraphSettings('homeComp', graphSelect1_el.value);
+    console.log(result);
     if (combGraph){
         combGraph.destroy();
     }

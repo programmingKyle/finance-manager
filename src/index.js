@@ -466,11 +466,19 @@ ipcMain.handle('graph-settings-handler', async (req, data) => {
     case 'Get':
       result = await checkGraphSettings();
       break;
-    case 'Save':
+    case 'Update':
+      result = await updateGraphSettings(data.graphSelect, data.timeOption);
       break;
   }
   return result;
 });
+
+async function updateGraphSettings(graphSelect, timeOption){
+  const jsonData = JSON.parse(fs.readFileSync(graphSettings, 'utf-8'));
+  jsonData[graphSelect] = timeOption;
+  fs.writeFileSync(graphSettings, JSON.stringify(jsonData, null, 2));
+  console.log('Done');
+}
 
 async function checkGraphSettings(){
   let result;
