@@ -1,4 +1,7 @@
 const overlayContainer_el = document.getElementById('overlayContainer');
+const downloadingText_el = document.getElementById('downloadingText');
+const pleaseWaitText_el = document.getElementById('pleaseWaitText');
+
 let updateControlDiv_el;
 
 autoUpdater.autoUpdaterCallback((status) => {
@@ -7,6 +10,8 @@ autoUpdater.autoUpdaterCallback((status) => {
         loadOverlayContent('overlays.html', '#updateContainer', autoUpdaterListeners);
     }
     if (status === 'Update Downloaded'){
+        downloadingText_el.textContent = 'Download Complete';
+        pleaseWaitText_el.style.display = 'none';
         updateControlDiv_el.style.display = 'grid';
     }
 });

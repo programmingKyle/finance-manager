@@ -116,6 +116,12 @@ button.update:hover {
   background-color: rgb(53, 145, 53);
 }
 
+p {
+  color: rgb(238, 238, 238);
+  padding: 0px;
+  margin: 0px;
+}
+
 .app-content-grid {
   display: grid;
   background-color: #1B1B1B;
