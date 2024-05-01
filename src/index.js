@@ -477,7 +477,6 @@ async function updateGraphSettings(graphSelect, timeOption){
   const jsonData = JSON.parse(fs.readFileSync(graphSettings, 'utf-8'));
   jsonData[graphSelect] = timeOption;
   fs.writeFileSync(graphSettings, JSON.stringify(jsonData, null, 2));
-  console.log('Done');
 }
 
 async function checkGraphSettings(){
