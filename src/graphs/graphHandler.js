@@ -27,7 +27,7 @@ async function graphOptionSelect(){
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    graphSettings = await api.getGraphSettings();
+    graphSettings = await api.graphSettingsHandler({request: 'Get'});
     graphSelects.forEach(element => {
         populateGraphSelect(element);        
     });

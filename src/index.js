@@ -459,8 +459,16 @@ async function getProjectPreviousProfits(id, type, select, number) {
   return total || 0;
 }
 
-ipcMain.handle('get-graph-settings', async () => {
-  const result = await checkGraphSettings();
+ipcMain.handle('graph-settings-handler', async (req, data) => {
+  if (!data || !data.request) return;
+  let result;
+  switch(data.request){
+    case 'Get':
+      result = await checkGraphSettings();
+      break;
+    case 'Save':
+      break;
+  }
   return result;
 });
 
