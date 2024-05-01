@@ -18,7 +18,8 @@ function populateGraphSelect(select){
 }
 
 document.addEventListener('DOMContentLoaded', async () => {
-    await api.getGraphSettings();
+    const result = await api.getGraphSettings();
+    console.log(result);
     graphSelects.forEach(element => {
         populateGraphSelect(element);        
     });

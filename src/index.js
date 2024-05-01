@@ -460,24 +460,40 @@ async function getProjectPreviousProfits(id, type, select, number) {
 }
 
 ipcMain.handle('get-graph-settings', async () => {
-  await checkGraphSettings();
+  const result = await checkGraphSettings();
+  return result;
 });
 
 async function checkGraphSettings(){
+  let result;
   if (!fs.existsSync(graphSettings)){
-    const settings = {
-      homeComp: 'Annual',
-      homeInter: 'Annual',
-      projectComp: 'Annual',
-      projectGrowth: 'Annual',
-    }
-  
-    const jsonSettings = JSON.stringify(settings, null, 2);
-  
-    fs.writeFile(graphSettings, jsonSettings, (err) => {
-      if (err){
-        console.error(err);
-      }
-    });
+    result = createDefaultGraphSettings();
+  } else {
+    result = getGraphSettings();
   }
+  return result;
+}
+
+function createDefaultGraphSettings(){
+  const settings = {
+    homeComp: 'Annual',
+    homeInter: 'Annual',
+    projectComp: 'Annual',
+    projectGrowth: 'Annual',
+  }
+
+  const jsonSettings = JSON.stringify(settings, null, 2);
+
+  fs.writeFile(graphSettings, jsonSettings, (err) => {
+    if (err){
+      console.error(err);
+    }
+  });
+
+  return JSON.parse(jsonSettings);
+}
+
+async function getGraphSettings(){
+  const jsonData = await fs.promises.readFile(graphSettings, 'utf-8');
+  return JSON.parse(jsonData);
 }
