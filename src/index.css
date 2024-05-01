@@ -89,7 +89,7 @@ h1,h2,h3,h4,h5,h6 {
 button {
   background-color: #414141;
   border-style: none;
-  color: white;
+  color: rgb(238, 238, 238);
   border-radius: 3px;
   padding: 5px;
   cursor: pointer;
@@ -106,6 +106,14 @@ button.disable {
 
 button.disable:hover{
   pointer-events: none;
+}
+
+button.update {
+  background-color: green;
+}
+
+button.update:hover {
+  background-color: rgb(53, 145, 53);
 }
 
 .app-content-grid {
