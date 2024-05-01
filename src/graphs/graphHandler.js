@@ -41,8 +41,7 @@ async function updateGraphSettings(graphSelect, timeOption){
 
 // Home View Comparison Graph
 graphSelect1_el.addEventListener('change', async () => {
-    const result = await updateGraphSettings('homeComp', graphSelect1_el.value);
-    console.log(result);
+    await updateGraphSettings('homeComp', graphSelect1_el.value);
     if (combGraph){
         combGraph.destroy();
     }
@@ -51,6 +50,7 @@ graphSelect1_el.addEventListener('change', async () => {
 
 // Home View Number of Transactions Graph
 graphSelect2_el.addEventListener('change', async () => {
+    await updateGraphSettings('homeInter', graphSelect2_el.value);
     if (interactionsGraph){
         interactionsGraph.destroy();
     }
@@ -59,6 +59,7 @@ graphSelect2_el.addEventListener('change', async () => {
 
 // Prject View Comparison Graph
 graphSelect3_el.addEventListener('change', async () => {
+    await updateGraphSettings('projectComp', graphSelect3_el.value);
     if (projectCombGraph){
         projectCombGraph.destroy();
     }
@@ -67,6 +68,7 @@ graphSelect3_el.addEventListener('change', async () => {
 
 // Project View Profit Growth Graph
 graphSelect4_el.addEventListener('change', async () => {
+    await updateGraphSettings('projectGrowth', graphSelect4_el.value);
     if (projectGrowthGraph){
         projectGrowthGraph.destroy();
     }

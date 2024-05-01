@@ -467,7 +467,7 @@ ipcMain.handle('graph-settings-handler', async (req, data) => {
       result = await checkGraphSettings();
       break;
     case 'Update':
-      result = await updateGraphSettings(data.graphSelect, data.timeOption);
+      await updateGraphSettings(data.graphSelect, data.timeOption);
       break;
   }
   return result;
