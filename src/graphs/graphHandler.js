@@ -17,7 +17,8 @@ function populateGraphSelect(select){
     });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+    await api.getGraphSettings();
     graphSelects.forEach(element => {
         populateGraphSelect(element);        
     });
@@ -115,4 +116,3 @@ async function numberSelect(input){
         return 7;
     }
 }
-

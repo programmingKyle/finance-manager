@@ -9,6 +9,8 @@ const db = new sqlite3.Database(`${appDataPath}/database.db`);
 
 const currencyOptions = `${appDataPath}\\currency.json`;
 
+const graphSettings = `${appDataPath}\\graphSettings.json`;
+
 db.run(`
   CREATE TABLE IF NOT EXISTS projects (
     id INTEGER PRIMARY KEY,
@@ -455,4 +457,27 @@ async function getProjectPreviousProfits(id, type, select, number) {
   const params = [id, type, valueSelect];
   const [ { total } ] = await databaseHandler('all', sqlStatement, params);
   return total || 0;
+}
+
+ipcMain.handle('get-graph-settings', async () => {
+  await checkGraphSettings();
+});
+
+async function checkGraphSettings(){
+  if (!fs.existsSync(graphSettings)){
+    const settings = {
+      homeComp: 'Annual',
+      homeInter: 'Annual',
+      projectComp: 'Annual',
+      projectGrowth: 'Annual',
+    }
+  
+    const jsonSettings = JSON.stringify(settings, null, 2);
+  
+    fs.writeFile(graphSettings, jsonSettings, (err) => {
+      if (err){
+        console.error(err);
+      }
+    });
+  }
 }
