@@ -1,8 +1,8 @@
 const overlayContainer_el = document.getElementById('overlayContainer');
-const downloadingText_el = document.getElementById('downloadingText');
-const pleaseWaitText_el = document.getElementById('pleaseWaitText');
 
 let updateControlDiv_el;
+let downloadingText_el;
+let pleaseWaitText_el;
 
 autoUpdater.autoUpdaterCallback((status) => {
     if (status === 'Update Available'){
@@ -21,6 +21,9 @@ function autoUpdaterListeners(){
     startUpdateButton_el = document.getElementById('startUpdateButton');
     quitUpdateButton_el = document.getElementById('quitUpdateButton');
     updateControlDiv_el = document.getElementById('updateControlDiv');
+    downloadingText_el = document.getElementById('downloadingText');
+    pleaseWaitText_el = document.getElementById('pleaseWaitText');
+
 
     startUpdateButton_el.addEventListener('click', () => {
         autoUpdater.restartAndUpdate();
