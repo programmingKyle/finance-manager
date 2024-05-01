@@ -5,6 +5,8 @@ const graphSelect4_el = document.getElementById('graphSelect4');
 
 const graphSelects = [graphSelect1_el, graphSelect2_el, graphSelect3_el, graphSelect4_el];
 
+let graphSettings;
+
 // Used for populating select options
 function populateGraphSelect(select){
     const optionLabels = ['Annual', 'Month', 'Week'];
@@ -17,12 +19,19 @@ function populateGraphSelect(select){
     });
 }
 
+async function graphOptionSelect(){
+    graphSelect1_el.value = graphSettings.homeComp;
+    graphSelect2_el.value = graphSettings.homeInter;
+    graphSelect3_el.value = graphSettings.projectComp;
+    graphSelect4_el.value = graphSettings.projectGrowth;
+}
+
 document.addEventListener('DOMContentLoaded', async () => {
-    const result = await api.getGraphSettings();
-    console.log(result);
+    graphSettings = await api.getGraphSettings();
     graphSelects.forEach(element => {
         populateGraphSelect(element);        
     });
+    await graphOptionSelect();
 });
 
 // Home View Comparison Graph
