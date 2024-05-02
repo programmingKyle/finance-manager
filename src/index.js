@@ -3,6 +3,9 @@ const path = require('node:path');
 const { autoUpdater } = require('electron-updater');
 const fs = require('fs');
 
+const Store = require('electron-store');
+const store = new Store();
+
 const sqlite3 = require('sqlite3').verbose();
 const appDataPath = app.getPath('userData');
 const db = new sqlite3.Database(`${appDataPath}/database.db`);
@@ -43,10 +46,11 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = () => {
+  const { width, height, isMaximized } = store.get('windowBounds', { width: 800, height: 600, isMaximized: false });
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: width,
+    height: height,
     minHeight: 500,
     minWidth: 600,
     frame: false,
@@ -69,6 +73,22 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
+  if (isMaximized) {
+    maximized = true;
+    mainWindow.maximize();
+  }
+
+  mainWindow.on('resize', () => {
+    if (!mainWindow.isMaximized()) {
+      const { width: newWidth, height: newHeight } = mainWindow.getBounds();
+      store.set('windowBounds', { width: newWidth, height: newHeight, isMaximized: false });
+    } else {
+      store.set('windowBounds', { width, height, isMaximized: true });
+    }
+  });
+  
+  
+
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
 };
@@ -88,7 +108,7 @@ app.whenReady().then(() => {
   });
 });
 
-let isMaximized;
+let maximized;
 ipcMain.handle('frame-handler', (req, data) => {
   if (!data || !data.request) return;
   switch(data.request){
@@ -105,12 +125,12 @@ ipcMain.handle('frame-handler', (req, data) => {
 });
 
 function toggleMaximize(){
-  if (isMaximized){
+  if (maximized){
     mainWindow.restore();
   } else {
     mainWindow.maximize();
   }
-  isMaximized = !isMaximized;
+  maximized = !maximized;
 }
 
 // Quit when all windows are closed, except on macOS. There, it's common
