@@ -46,11 +46,12 @@ if (require('electron-squirrel-startup')) {
 }
 
 const createWindow = () => {
-  const { width, height, isMaximized } = store.get('windowBounds', { width: 800, height: 600, isMaximized: false });
-  // Create the browser window.
+  const { width, height, x, y, isMaximized } = store.get('windowBounds', { width: 800, height: 600, x: undefined, y: undefined, isMaximized: false });  // Create the browser window.
   mainWindow = new BrowserWindow({
     width: width,
     height: height,
+    x: x,
+    y: y,
     minHeight: 500,
     minWidth: 600,
     frame: false,
@@ -81,13 +82,18 @@ const createWindow = () => {
   mainWindow.on('resize', () => {
     if (!mainWindow.isMaximized()) {
       const { width: newWidth, height: newHeight } = mainWindow.getBounds();
-      store.set('windowBounds', { width: newWidth, height: newHeight, isMaximized: false });
+      store.set('windowBounds', { width: newWidth, height: newHeight, x: mainWindow.getPosition()[0], y: mainWindow.getPosition()[1], isMaximized: false });
     } else {
-      store.set('windowBounds', { width, height, isMaximized: true });
+      store.set('windowBounds', { width, height, x, y, isMaximized: true });
     }
   });
   
-  
+  mainWindow.on('move', () => {
+    if (!mainWindow.isMaximized()) {
+      const [newX, newY] = mainWindow.getPosition();
+      store.set('windowBounds', { width, height, x: newX, y: newY, isMaximized: false });
+    }
+  });
 
   // Open the DevTools.
   //mainWindow.webContents.openDevTools();
