@@ -137,7 +137,6 @@ async function numberSelect(input){
 }
 
 function getTimeLabels(data, select){
-    console.log(data);
     const labels = data.map(data => {
         if (select.value !== 'Annual'){
             const split = data.date.split('-');
