@@ -4,7 +4,7 @@ const ctxSalesExpenses = activeCombGraph_el.getContext('2d');
 let combGraph;
 
 function createSalesExpensesComparisonGraph(data) {
-  const monthLabels = data.map(data => data.date);
+  const monthLabels = getTimeLabels(data, graphSelect1_el);
   const randomSalesData = data.map(data => data.sales);
   const randomExpensesData = data.map(data => data.totalExpenses);
     

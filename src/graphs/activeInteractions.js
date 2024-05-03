@@ -7,7 +7,7 @@ let graphProjects;
 
 function createActiveInteractionsGraph(data) {
   const interactionCount = data.map(data => data.interactionCount);
-  const interactionDate = data.map(data => data.date);
+  const interactionDate = getTimeLabels(data, graphSelect2_el);
 
   return new Chart(ctxInteractions, {
     type: 'bar',

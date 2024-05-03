@@ -4,7 +4,14 @@ const projectGrowth = projectGrowthGraph_el.getContext('2d');
 let projectGrowthGraph;
 
 function createProjectGrowthGraph(data, previousProfit) {
-    const monthLabels = data.dateValues;
+    const dates = data.dateValues.map(date => {
+        return {
+            date: date
+        }
+    });
+
+    const monthLabels = getTimeLabels(dates, graphSelect4_el);
+    //const monthLabels = data.dateValues;
     let growthData = data.profitValues;
     growthData = growthData.map(value => value += previousProfit);
     

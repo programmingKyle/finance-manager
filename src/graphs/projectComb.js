@@ -4,7 +4,7 @@ const projectSalesExpenses = projectCompGraph_el.getContext('2d');
 let projectCombGraph;
 
 function createProjectSaleExpensesGraph(data) {
-  const monthLabels = data.map(data => data.date);
+  const monthLabels = getTimeLabels(data, graphSelect3_el);
   const randomSalesData = data.map(data => data.sales);
   const randomExpensesData = data.map(data => data.totalExpenses);
     

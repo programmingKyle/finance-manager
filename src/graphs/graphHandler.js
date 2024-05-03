@@ -135,3 +135,16 @@ async function numberSelect(input){
         return 7;
     }
 }
+
+function getTimeLabels(data, select){
+    console.log(data);
+    const labels = data.map(data => {
+        if (select.value !== 'Annual'){
+            const split = data.date.split('-');
+            return `${split[1]}-${split[2]}`;
+        } else {
+            return data.date;
+        }
+    })
+    return labels;
+}
