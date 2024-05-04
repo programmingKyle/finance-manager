@@ -10,9 +10,9 @@ const sqlite3 = require('sqlite3').verbose();
 const appDataPath = app.getPath('userData');
 const db = new sqlite3.Database(`${appDataPath}/database.db`);
 
-const currencyOptions = `${appDataPath}\\currency.json`;
+const currencyOptions = `${appDataPath}/currency.json`;
 
-const graphSettings = `${appDataPath}\\graphSettings.json`;
+const graphSettings = `${appDataPath}/graphSettings.json`;
 
 db.run(`
   CREATE TABLE IF NOT EXISTS projects (
